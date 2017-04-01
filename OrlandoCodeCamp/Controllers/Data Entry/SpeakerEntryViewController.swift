@@ -30,30 +30,30 @@ class SpeakerEntryViewController: UIViewController
 
     @IBAction func submitTapped(_ sender: Any)
     {
-        let fullName = fullNameTextField.text
-        let company = companyTextField.text
-        let title = titleTextField.text
-        let bio = bioTextField.text
-        let twitter = twitterTextField.text
-        let website = websiteTextField.text
-        let blog = blogTextField.text
-        let avatarURL = avatarURLTextField.text
-        let mvpDetails = mvpDetailsTextField.text
-        let authorDetails = authorDetailsTextField.text
-
-        let speaker = Speaker(fullName: fullName, company: company, title: title, bio: bio, twitter: twitter, website: website, blog: blog, avatarURL: avatarURL, mvpDetails: mvpDetails, authorDetails: authorDetails, sessions: nil)
-        DataService.shared.saveSpeaker(speaker)
-        {
-            self.fullNameTextField.text = ""
-            self.companyTextField.text = ""
-            self.titleTextField.text = ""
-            self.bioTextField.text = ""
-            self.twitterTextField.text = ""
-            self.websiteTextField.text = ""
-            self.blogTextField.text = ""
-            self.avatarURLTextField.text = ""
-            self.mvpDetailsTextField.text = ""
-            self.authorDetailsTextField.text = ""
-        }
+//        let fullName = fullNameTextField.text
+//        let company = companyTextField.text
+//        let title = titleTextField.text
+//        let bio = bioTextField.text
+//        let twitter = twitterTextField.text
+//        let website = websiteTextField.text
+//        let blog = blogTextField.text
+//        let avatarURL = avatarURLTextField.text
+//        let mvpDetails = mvpDetailsTextField.text
+//        let authorDetails = authorDetailsTextField.text
+//
+//        let speaker = Speaker(fullName: fullName, company: company, title: title, bio: bio, twitter: twitter, website: website, blog: blog, avatarURL: avatarURL, mvpDetails: mvpDetails, authorDetails: authorDetails, sessions: nil)
+//        DataService.shared.saveSpeaker(speaker)
+//        {
+//            self.fullNameTextField.text = ""
+//            self.companyTextField.text = ""
+//            self.titleTextField.text = ""
+//            self.bioTextField.text = ""
+//            self.twitterTextField.text = ""
+//            self.websiteTextField.text = ""
+//            self.blogTextField.text = ""
+//            self.avatarURLTextField.text = ""
+//            self.mvpDetailsTextField.text = ""
+//            self.authorDetailsTextField.text = ""
+//        }
     }
 }

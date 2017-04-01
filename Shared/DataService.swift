@@ -14,6 +14,8 @@ import SwiftyJSON
 typealias GetAllSpeakersCompletion = (_ speakers: [Speaker]?, _ error: Error?) -> Void
 typealias GetAllTracksCompletion = (_ tracks: [Track]?, _ error: Error?) -> Void
 typealias GetAllTimeslotsCompletion = (_ timeslot: [Timeslot]?, _ error: Error?) -> Void
+typealias GetTrackWithKeyCompletion = (_ track: Track) -> Void
+typealias GetTimeslotWithKeyCompletion = (_ timeslot: Timeslot) -> Void
 
 class DataService: NSObject
 {
@@ -105,6 +107,17 @@ class DataService: NSObject
     }
 
     ////////////////////////////////////////////////////////////
+
+    func getTrack(withKey key: String, completion: @escaping GetTrackWithKeyCompletion)
+    {
+        let tracksRef = databaseRef.child("tracks")
+        tracksRef.child(key).observeSingleEvent(of: .value, with:
+        { snapshot in
+            print(snapshot.value ?? "Nothing")
+        })
+    }
+
+    ////////////////////////////////////////////////////////////
     // MARK: - Save Functions
     ////////////////////////////////////////////////////////////
 
@@ -113,14 +126,14 @@ class DataService: NSObject
         let speakersRef = databaseRef.child("speakers")
         let key = speakersRef.childByAutoId()
 
-        if let fullName = speaker.fullName, fullName != "" { key.child("fullName").setValue(fullName) }
+        key.child("fullName").setValue(speaker.fullName)
         if let company = speaker.company, company != "" { key.child("company").setValue(company) }
         if let title = speaker.title, title != "" { key.child("title").setValue(title) }
         if let bio = speaker.bio, bio != "" { key.child("bio").setValue(bio) }
         if let twitter = speaker.twitter, twitter != "" { key.child("twitter").setValue(twitter) }
         if let website = speaker.website, website != "" { key.child("website").setValue(website) }
         if let blog = speaker.blog, blog != "" { key.child("blog").setValue(blog) }
-        if let avatarURL = speaker.avatarURL, avatarURL != "" { key.child("avatarURL").setValue(avatarURL) }
+        key.child("avatarURL").setValue(speaker.avatarURL)
         if let mvpDetails = speaker.mvpDetails, mvpDetails != "" { key.child("mvpDetails").setValue(mvpDetails) }
         if let authorDetails = speaker.authorDetails, authorDetails != "" { key.child("authorDetails").setValue(authorDetails) }
         completion()
@@ -221,14 +234,8 @@ class DataService: NSObject
 
     private func getSpeakerKey(_ speaker: Speaker, completion: @escaping (String?) -> Void)
     {
-        guard let name = speaker.fullName else
-        {
-            completion(nil)
-            return
-        }
-
         let speakersRef = databaseRef.child("speakers")
-        let query = speakersRef.queryOrdered(byChild: "fullName").queryEqual(toValue: name)
+        let query = speakersRef.queryOrdered(byChild: "fullName").queryEqual(toValue: speaker.fullName)
         query.observeSingleEvent(of: .value, with:
             { snapshot in
                 if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot]

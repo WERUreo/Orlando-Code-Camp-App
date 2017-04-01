@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="89" id="KGk-i7-Jjw" customClass="ScheduleCell" customModule="OrlandoCodeCamp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="92"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="92"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ytu-5D-dQy">
+                        <rect key="frame" x="8" y="8" width="75" height="75"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="75" id="7PG-c7-3m1"/>
+                            <constraint firstAttribute="height" constant="75" id="ytt-h9-3e8"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Session Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fNO-Oq-rL5">
+                        <rect key="frame" x="91" y="8" width="114" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Speaker Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3MS-ck-TV2">
+                        <rect key="frame" x="91" y="37" width="101" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time - Room" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UvI-Cc-pcM">
+                        <rect key="frame" x="91" y="63" width="78" height="16"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tUh-wC-shp">
+                        <rect key="frame" x="0.0" y="0.0" width="8" height="92"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="8" id="bLc-q5-0zu"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="tUh-wC-shp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="5AN-YI-yNM"/>
+                    <constraint firstAttribute="bottom" secondItem="ytu-5D-dQy" secondAttribute="bottom" constant="8" id="KDE-JO-95e"/>
+                    <constraint firstItem="ytu-5D-dQy" firstAttribute="leading" secondItem="tUh-wC-shp" secondAttribute="trailing" id="Mm8-kh-vKN"/>
+                    <constraint firstItem="ytu-5D-dQy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="NDX-uT-fED"/>
+                    <constraint firstAttribute="bottom" secondItem="tUh-wC-shp" secondAttribute="bottom" id="P2w-aG-1Em"/>
+                    <constraint firstItem="tUh-wC-shp" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="V82-KY-Okj"/>
+                    <constraint firstItem="tUh-wC-shp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="gQT-Qd-l88"/>
+                    <constraint firstItem="ytu-5D-dQy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="vGn-qL-OD8"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="sessionNameLabel" destination="fNO-Oq-rL5" id="YbK-gC-uLc"/>
+                <outlet property="speakerAvatarImageView" destination="ytu-5D-dQy" id="PNS-Gh-SPq"/>
+                <outlet property="speakerNameLabel" destination="3MS-ck-TV2" id="dl0-eU-ozL"/>
+                <outlet property="timeLocationLabel" destination="UvI-Cc-pcM" id="UYK-J9-0sd"/>
+                <outlet property="trackColorView" destination="tUh-wC-shp" id="gT8-8u-9gf"/>
+            </connections>
+            <point key="canvasLocation" x="25" y="76"/>
+        </tableViewCell>
+    </objects>
+</document>

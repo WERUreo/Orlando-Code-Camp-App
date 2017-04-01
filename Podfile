@@ -5,4 +5,6 @@ target 'OrlandoCodeCamp' do
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'SwiftyJSON'
+  pod 'Fabric'
+  pod 'Crashlytics'
 end

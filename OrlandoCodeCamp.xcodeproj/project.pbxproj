@@ -25,6 +25,12 @@
 		421E398A1E8CA38E004A2C96 /* TimeSlotEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421E39891E8CA38E004A2C96 /* TimeSlotEntryViewController.swift */; };
 		421E398C1E8CA39C004A2C96 /* SponsorEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421E398B1E8CA39C004A2C96 /* SponsorEntryViewController.swift */; };
 		421E398E1E8CA3A7004A2C96 /* SessionEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421E398D1E8CA3A7004A2C96 /* SessionEntryViewController.swift */; };
+		4291DD1F1E8EF3220058ED2C /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4291DD1D1E8EF3220058ED2C /* ScheduleCell.swift */; };
+		4291DD201E8EF3220058ED2C /* ScheduleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4291DD1E1E8EF3220058ED2C /* ScheduleCell.xib */; };
+		4291DD221E8EF6820058ED2C /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4291DD211E8EF6820058ED2C /* ScheduleViewController.swift */; };
+		4291DD251E8F09C20058ED2C /* UITableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4291DD241E8F09C20058ED2C /* UITableViewExtension.swift */; };
+		4291DD271E8F0A570058ED2C /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4291DD261E8F0A570058ED2C /* ReusableView.swift */; };
+		4291DD291E8F0AF60058ED2C /* NibLoadableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4291DD281E8F0AF60058ED2C /* NibLoadableView.swift */; };
 		42DD76D81E8DFD4B00CC7D1A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42DD76D61E8DFD4B00CC7D1A /* Main.storyboard */; };
 		BE0BFC522E7A3667F2AAA384 /* Pods_OrlandoCodeCamp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9157020BEA6EDCD95AF4DED8 /* Pods_OrlandoCodeCamp.framework */; };
 /* End PBXBuildFile section */
@@ -51,6 +57,12 @@
 		421E39891E8CA38E004A2C96 /* TimeSlotEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimeSlotEntryViewController.swift; path = "Controllers/Data Entry/TimeSlotEntryViewController.swift"; sourceTree = "<group>"; };
 		421E398B1E8CA39C004A2C96 /* SponsorEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SponsorEntryViewController.swift; path = "Controllers/Data Entry/SponsorEntryViewController.swift"; sourceTree = "<group>"; };
 		421E398D1E8CA3A7004A2C96 /* SessionEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SessionEntryViewController.swift; path = "Controllers/Data Entry/SessionEntryViewController.swift"; sourceTree = "<group>"; };
+		4291DD1D1E8EF3220058ED2C /* ScheduleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScheduleCell.swift; path = "Views/Schedule Table View Cell/ScheduleCell.swift"; sourceTree = "<group>"; };
+		4291DD1E1E8EF3220058ED2C /* ScheduleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ScheduleCell.xib; path = "Views/Schedule Table View Cell/ScheduleCell.xib"; sourceTree = "<group>"; };
+		4291DD211E8EF6820058ED2C /* ScheduleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScheduleViewController.swift; path = Controllers/ScheduleViewController.swift; sourceTree = "<group>"; };
+		4291DD241E8F09C20058ED2C /* UITableViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UITableViewExtension.swift; path = Extensions/UITableViewExtension.swift; sourceTree = "<group>"; };
+		4291DD261E8F0A570058ED2C /* ReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReusableView.swift; path = Views/ReusableView.swift; sourceTree = "<group>"; };
+		4291DD281E8F0AF60058ED2C /* NibLoadableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NibLoadableView.swift; path = Views/NibLoadableView.swift; sourceTree = "<group>"; };
 		42DD76D71E8DFD4B00CC7D1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		863C21CCB923FDB642E89A84 /* Pods-OrlandoCodeCamp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OrlandoCodeCamp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OrlandoCodeCamp/Pods-OrlandoCodeCamp.debug.xcconfig"; sourceTree = "<group>"; };
 		9157020BEA6EDCD95AF4DED8 /* Pods_OrlandoCodeCamp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OrlandoCodeCamp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -99,9 +111,11 @@
 		421E395E1E8C3AF2004A2C96 /* OrlandoCodeCamp */ = {
 			isa = PBXGroup;
 			children = (
+				4291DD231E8F09A80058ED2C /* Extensions */,
+				4291DD1B1E8EF2D60058ED2C /* Views */,
+				42DD76D31E8DFBFB00CC7D1A /* Controllers */,
 				42DD76D51E8DFC2800CC7D1A /* Storyboards */,
 				42DD76D41E8DFC0E00CC7D1A /* Resources */,
-				42DD76D31E8DFBFB00CC7D1A /* Controllers */,
 				421E395F1E8C3AF2004A2C96 /* AppDelegate.swift */,
 			);
 			path = OrlandoCodeCamp;
@@ -142,10 +156,38 @@
 			name = "Data Entry";
 			sourceTree = "<group>";
 		};
+		4291DD1B1E8EF2D60058ED2C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4291DD1C1E8EF2EE0058ED2C /* Schedule Table View Cell */,
+				4291DD261E8F0A570058ED2C /* ReusableView.swift */,
+				4291DD281E8F0AF60058ED2C /* NibLoadableView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		4291DD1C1E8EF2EE0058ED2C /* Schedule Table View Cell */ = {
+			isa = PBXGroup;
+			children = (
+				4291DD1D1E8EF3220058ED2C /* ScheduleCell.swift */,
+				4291DD1E1E8EF3220058ED2C /* ScheduleCell.xib */,
+			);
+			name = "Schedule Table View Cell";
+			sourceTree = "<group>";
+		};
+		4291DD231E8F09A80058ED2C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4291DD241E8F09C20058ED2C /* UITableViewExtension.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		42DD76D31E8DFBFB00CC7D1A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				421E398F1E8CA3B1004A2C96 /* Data Entry */,
+				4291DD211E8EF6820058ED2C /* ScheduleViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -191,6 +233,7 @@
 				421E395A1E8C3AF2004A2C96 /* Resources */,
 				1A165CC8F1027332FF5841D6 /* [CP] Embed Pods Frameworks */,
 				7E26A60DCB789EDB02BA606B /* [CP] Copy Pods Resources */,
+				4291DD2A1E8F3FF30058ED2C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -243,6 +286,7 @@
 			files = (
 				421E396A1E8C3AF2004A2C96 /* LaunchScreen.storyboard in Resources */,
 				42DD76D81E8DFD4B00CC7D1A /* Main.storyboard in Resources */,
+				4291DD201E8EF3220058ED2C /* ScheduleCell.xib in Resources */,
 				421E39821E8C4961004A2C96 /* GoogleService-Info.plist in Resources */,
 				421E39671E8C3AF2004A2C96 /* Assets.xcassets in Resources */,
 				421E39651E8C3AF2004A2C96 /* DataEntry.storyboard in Resources */,
@@ -266,6 +310,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OrlandoCodeCamp/Pods-OrlandoCodeCamp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		4291DD2A1E8F3FF30058ED2C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 2d2847685753c340e6f36168e9e66b3c41f3f998 dbf27c01b9efc7c601ad4df119a4539b5fc057b7e54ba060ff2d3cefa2f8eeba";
 		};
 		7E26A60DCB789EDB02BA606B /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -307,13 +364,18 @@
 				421E398C1E8CA39C004A2C96 /* SponsorEntryViewController.swift in Sources */,
 				421E39841E8C4FAE004A2C96 /* SpeakerEntryViewController.swift in Sources */,
 				421E39781E8C3F56004A2C96 /* Session.swift in Sources */,
+				4291DD221E8EF6820058ED2C /* ScheduleViewController.swift in Sources */,
 				421E39761E8C3F06004A2C96 /* Announcement.swift in Sources */,
+				4291DD1F1E8EF3220058ED2C /* ScheduleCell.swift in Sources */,
 				421E397E1E8C41F5004A2C96 /* Timeslot.swift in Sources */,
 				421E397C1E8C41B8004A2C96 /* Sponsor.swift in Sources */,
+				4291DD251E8F09C20058ED2C /* UITableViewExtension.swift in Sources */,
+				4291DD271E8F0A570058ED2C /* ReusableView.swift in Sources */,
 				421E398E1E8CA3A7004A2C96 /* SessionEntryViewController.swift in Sources */,
 				421E39861E8C5260004A2C96 /* DataService.swift in Sources */,
 				421E39881E8C9E50004A2C96 /* TrackEntryViewController.swift in Sources */,
 				421E39801E8C4234004A2C96 /* Track.swift in Sources */,
+				4291DD291E8F0AF60058ED2C /* NibLoadableView.swift in Sources */,
 				421E397A1E8C3FDA004A2C96 /* Speaker.swift in Sources */,
 				421E39741E8C3E60004A2C96 /* Event.swift in Sources */,
 				421E398A1E8CA38E004A2C96 /* TimeSlotEntryViewController.swift in Sources */,

@@ -72,7 +72,7 @@ class SessionEntryViewController: UIViewController
             {
                 if let speakerList = speakers
                 {
-                    self.speakers = speakerList.sorted { $0.fullName! < $1.fullName! }
+                    self.speakers = speakerList.sorted { $0.fullName < $1.fullName }
                 }
 
                 DispatchQueue.main.async
