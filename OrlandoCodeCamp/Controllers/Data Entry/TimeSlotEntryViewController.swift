@@ -25,7 +25,7 @@ class TimeSlotEntryViewController: UIViewController
         let startTime = startTimeTextField.text
         let endTime = endTimeTextField.text
 
-        let timeslot = Timeslot(startTime: startTime, endTime: endTime, rank: nil, sessions: nil)
+        let timeslot = Timeslot(time: startTime!, rank: Int(endTime!)!, sessions: nil)
         DataService.shared.saveTimeSlot(timeslot)
         {
             startTimeTextField.text = ""

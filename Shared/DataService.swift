@@ -10,12 +10,18 @@ import Foundation
 import Firebase
 import FirebaseDatabase
 import SwiftyJSON
+import Alamofire
+import AlamofireImage
 
 typealias GetAllSpeakersCompletion = (_ speakers: [Speaker]?, _ error: Error?) -> Void
 typealias GetAllTracksCompletion = (_ tracks: [Track]?, _ error: Error?) -> Void
 typealias GetAllTimeslotsCompletion = (_ timeslot: [Timeslot]?, _ error: Error?) -> Void
+typealias GetAllSessionsCompletion = (_ session: [Session]?, _ error: Error?) -> Void
+
 typealias GetTrackWithKeyCompletion = (_ track: Track) -> Void
 typealias GetTimeslotWithKeyCompletion = (_ timeslot: Timeslot) -> Void
+typealias GetSpeakerWithKeyCompletion = (_ speaker: Speaker) -> Void
+typealias GetSpeakerImageCompletion = (_ image: UIImage?) -> Void
 
 class DataService: NSObject
 {
@@ -25,6 +31,7 @@ class DataService: NSObject
 
     static let shared = DataService()
     fileprivate let databaseRef = FIRDatabase.database().reference()
+    fileprivate let imageCache = AutoPurgingImageCache()
 
     ////////////////////////////////////////////////////////////
     // MARK: - Initlializer
@@ -108,6 +115,30 @@ class DataService: NSObject
 
     ////////////////////////////////////////////////////////////
 
+    func getAllSessions(completion: @escaping GetAllSessionsCompletion)
+    {
+        let sessionsRef = databaseRef.child("sessions")
+        sessionsRef.observe(.value, with:
+        { snapshot in
+            var sessions = [Session]()
+            if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot]
+            {
+                for snap in snapshots
+                {
+                    if let sessionDict = snap.value as? [String: Any]
+                    {
+                        let sessionJSON = JSON(sessionDict)
+                        let session = Session(json: sessionJSON)
+                        sessions.append(session)
+                    }
+                }
+                completion(sessions, nil)
+            }
+        })
+    }
+
+    ////////////////////////////////////////////////////////////
+
     func getTrack(withKey key: String, completion: @escaping GetTrackWithKeyCompletion)
     {
         let tracksRef = databaseRef.child("tracks")
@@ -118,24 +149,87 @@ class DataService: NSObject
     }
 
     ////////////////////////////////////////////////////////////
+
+    func getSpeaker(withKey key: String, completion: @escaping GetSpeakerWithKeyCompletion)
+    {
+        let speakersRef = databaseRef.child("speakers")
+        speakersRef.child(key).observeSingleEvent(of: .value, with:
+        { snapshot in
+            if let value = snapshot.value as? [String: Any]
+            {
+                let json = JSON(value)
+                let speaker = Speaker(json: json)
+                completion(speaker)
+            }
+        })
+    }
+
+    ////////////////////////////////////////////////////////////
+
+    func getSpeakerImage(from url: String, completion: @escaping GetSpeakerImageCompletion)
+    {
+        if let cachedImage = self.imageCache.image(withIdentifier: url)
+        {
+            completion(cachedImage)
+        }
+        else
+        {
+            Alamofire.request(url).responseImage
+            { response in
+                if response.result.isSuccess
+                {
+                    guard let image = response.result.value else
+                    {
+                        completion(nil)
+                        return
+                    }
+
+                    self.imageCache.add(image, withIdentifier: url)
+                    completion(image)
+                }
+                else
+                {
+                    completion(nil)
+                }
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////
+
+    func getSession(withName name: String)
+    {
+        let sessionsRef = databaseRef.child("sessions")
+        let query = sessionsRef.queryOrdered(byChild: "name").queryEqual(toValue: name)
+        query.observeSingleEvent(of: .value, with:
+        { snapshot in
+            if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot]
+            {
+                print(snapshots.first?.value ?? "Nothing")
+            }
+        })
+    }
+
+    ////////////////////////////////////////////////////////////
     // MARK: - Save Functions
     ////////////////////////////////////////////////////////////
 
-    func saveSpeaker(_ speaker: Speaker, completion: () -> Void)
+    func saveSpeaker(_ speaker: Speaker?, completion: () -> Void)
     {
         let speakersRef = databaseRef.child("speakers")
         let key = speakersRef.childByAutoId()
 
-        key.child("fullName").setValue(speaker.fullName)
-        if let company = speaker.company, company != "" { key.child("company").setValue(company) }
-        if let title = speaker.title, title != "" { key.child("title").setValue(title) }
-        if let bio = speaker.bio, bio != "" { key.child("bio").setValue(bio) }
-        if let twitter = speaker.twitter, twitter != "" { key.child("twitter").setValue(twitter) }
-        if let website = speaker.website, website != "" { key.child("website").setValue(website) }
-        if let blog = speaker.blog, blog != "" { key.child("blog").setValue(blog) }
-        key.child("avatarURL").setValue(speaker.avatarURL)
-        if let mvpDetails = speaker.mvpDetails, mvpDetails != "" { key.child("mvpDetails").setValue(mvpDetails) }
-        if let authorDetails = speaker.authorDetails, authorDetails != "" { key.child("authorDetails").setValue(authorDetails) }
+        key.child("fullName").setValue("temp")
+//        key.child("fullName").setValue(speaker.fullName)
+//        if let company = speaker.company, company != "" { key.child("company").setValue(company) }
+//        if let title = speaker.title, title != "" { key.child("title").setValue(title) }
+//        if let bio = speaker.bio, bio != "" { key.child("bio").setValue(bio) }
+//        if let twitter = speaker.twitter, twitter != "" { key.child("twitter").setValue(twitter) }
+//        if let website = speaker.website, website != "" { key.child("website").setValue(website) }
+//        if let blog = speaker.blog, blog != "" { key.child("blog").setValue(blog) }
+//        key.child("avatarURL").setValue(speaker.avatarURL)
+//        if let mvpDetails = speaker.mvpDetails, mvpDetails != "" { key.child("mvpDetails").setValue(mvpDetails) }
+//        if let authorDetails = speaker.authorDetails, authorDetails != "" { key.child("authorDetails").setValue(authorDetails) }
         completion()
     }
 
@@ -143,11 +237,11 @@ class DataService: NSObject
 
     func saveTrack(_ track: Track, completion: () -> Void)
     {
-        let tracksRef = databaseRef.child("tracks")
-        let key = tracksRef.childByAutoId()
-
-        if let trackName = track.name, trackName != "" { key.child("name").setValue(trackName) }
-        if let roomNumber = track.roomNumber, roomNumber != "" { key.child("roomNumber").setValue(roomNumber) }
+//        let tracksRef = databaseRef.child("tracks")
+//        let key = tracksRef.childByAutoId()
+//
+//        if let trackName = track.name, trackName != "" { key.child("name").setValue(trackName) }
+//        if let roomNumber = track.roomNumber, roomNumber != "" { key.child("roomNumber").setValue(roomNumber) }
         completion()
     }
 
@@ -158,8 +252,8 @@ class DataService: NSObject
         let timeslotsRef = databaseRef.child("timeslots")
         let key = timeslotsRef.childByAutoId()
 
-        if let startTime = timeslot.startTime, startTime != "" { key.child("startTime").setValue(startTime) }
-        if let endTime = timeslot.endTime, endTime != "" { key.child("endTime").setValue(endTime) }
+        key.child("time").setValue(timeslot.time)
+        key.child("rank").setValue(timeslot.rank)
         completion()
     }
 
@@ -167,64 +261,65 @@ class DataService: NSObject
 
     func saveSponsor(_ sponsor: Sponsor, completion: () -> Void)
     {
-        let sponsorsRef = databaseRef.child("sponsors")
-        let key = sponsorsRef.childByAutoId()
-
-        if let companyName = sponsor.companyName, companyName != "" { key.child("companyName").setValue(companyName) }
-        if let sponsorLevel = sponsor.sponsorLevel, sponsorLevel != "" { key.child("sponsorLevel").setValue(sponsorLevel) }
-        if let bio = sponsor.bio, bio != "" { key.child("bio").setValue(bio) }
-        if let twitter = sponsor.twitter, twitter != "" { key.child("twitter").setValue(twitter) }
-        if let website = sponsor.website, website != "" { key.child("website").setValue(website) }
-        if let avatarURL = sponsor.avatarURL, avatarURL != "" { key.child("avatarURL").setValue(avatarURL) }
+//        let sponsorsRef = databaseRef.child("sponsors")
+//        let key = sponsorsRef.childByAutoId()
+//
+//        if let companyName = sponsor.companyName, companyName != "" { key.child("companyName").setValue(companyName) }
+//        if let sponsorLevel = sponsor.sponsorLevel, sponsorLevel != "" { key.child("sponsorLevel").setValue(sponsorLevel) }
+//        if let bio = sponsor.bio, bio != "" { key.child("bio").setValue(bio) }
+//        if let twitter = sponsor.twitter, twitter != "" { key.child("twitter").setValue(twitter) }
+//        if let website = sponsor.website, website != "" { key.child("website").setValue(website) }
+//        if let avatarURL = sponsor.avatarURL, avatarURL != "" { key.child("avatarURL").setValue(avatarURL) }
         completion()
     }
 
     ////////////////////////////////////////////////////////////
 
-    func saveSession(_ session: Session, completion: () -> Void)
+    func saveSession(_ session: Session?, completion: () -> Void)
     {
         let sessionsRef = databaseRef.child("sessions")
         let newSessionRef = sessionsRef.childByAutoId()
-        let key = newSessionRef.key
-
-        if let name = session.name, name != "" { newSessionRef.child("name").setValue(name) }
-        if let description = session.description, description != "" { newSessionRef.child("description").setValue(description) }
-        if let level = session.level { newSessionRef.child("level").setValue(level) }
-        if let speaker = session.speaker
-        {
-            getSpeakerKey(speaker, completion:
-            { speakerKey in
-                newSessionRef.child("speaker").setValue(speakerKey)
-                self.updateSpeaker(key: speakerKey!, withSession: key)
-            })
-        }
-        if let cospeakers = session.cospeakers
-        {
-            for speaker in cospeakers
-            {
-                getSpeakerKey(speaker, completion:
-                { speakerKey in
-                    newSessionRef.child("cospeakers").child(speakerKey!).setValue(true)
-                    self.updateSpeaker(key: speakerKey!, withSession: key)
-                })
-            }
-        }
-        if let track = session.track
-        {
-            getTrackKey(track, completion:
-            { trackKey in
-                newSessionRef.child("track").setValue(trackKey)
-                self.updateTrack(key: trackKey!, withSession: key)
-            })
-        }
-        if let timeslot = session.timeslot
-        {
-            getTimeslotKey(timeslot, completion:
-            { timeslotKey in
-                newSessionRef.child("timeslot").setValue(timeslotKey)
-                self.updateTimeslot(key: timeslotKey!, withSession: key)
-            })
-        }
+        newSessionRef.child("name").setValue("temp")
+//        let key = newSessionRef.key
+//
+//        if let name = session.name, name != "" { newSessionRef.child("name").setValue(name) }
+//        if let description = session.description, description != "" { newSessionRef.child("description").setValue(description) }
+//        if let level = session.level { newSessionRef.child("level").setValue(level) }
+//        if let speaker = session.speaker
+//        {
+//            getSpeakerKey(speaker, completion:
+//            { speakerKey in
+//                newSessionRef.child("speaker").setValue(speakerKey)
+//                self.updateSpeaker(key: speakerKey!, withSession: key)
+//            })
+//        }
+//        if let cospeakers = session.cospeakers
+//        {
+//            for speaker in cospeakers
+//            {
+//                getSpeakerKey(speaker, completion:
+//                { speakerKey in
+//                    newSessionRef.child("cospeakers").child(speakerKey!).setValue(true)
+//                    self.updateSpeaker(key: speakerKey!, withSession: key)
+//                })
+//            }
+//        }
+//        if let track = session.track
+//        {
+//            getTrackKey(track, completion:
+//            { trackKey in
+//                newSessionRef.child("track").setValue(trackKey)
+//                self.updateTrack(key: trackKey!, withSession: key)
+//            })
+//        }
+//        if let timeslot = session.timeslot
+//        {
+//            getTimeslotKey(timeslot, completion:
+//            { timeslotKey in
+//                newSessionRef.child("timeslot").setValue(timeslotKey)
+//                self.updateTimeslot(key: timeslotKey!, withSession: key)
+//            })
+//        }
         completion()
     }
 
@@ -237,11 +332,11 @@ class DataService: NSObject
         let speakersRef = databaseRef.child("speakers")
         let query = speakersRef.queryOrdered(byChild: "fullName").queryEqual(toValue: speaker.fullName)
         query.observeSingleEvent(of: .value, with:
-            { snapshot in
-                if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot]
-                {
-                    completion(snapshots.first?.key)
-                }
+        { snapshot in
+            if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot]
+            {
+                completion(snapshots.first?.key)
+            }
         })
     }
 
@@ -258,11 +353,11 @@ class DataService: NSObject
         let tracksRef = databaseRef.child("tracks")
         let query = tracksRef.queryOrdered(byChild: "name").queryEqual(toValue: name)
         query.observeSingleEvent(of: .value, with:
-            { snapshot in
-                if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot]
-                {
-                    completion(snapshots.first?.key)
-                }
+        { snapshot in
+            if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot]
+            {
+                completion(snapshots.first?.key)
+            }
         })
     }
 
@@ -270,20 +365,80 @@ class DataService: NSObject
 
     private func getTimeslotKey(_ timeslot: Timeslot, completion: @escaping (String?) -> Void)
     {
-        guard let startTime = timeslot.startTime else
-        {
-            completion(nil)
-            return
-        }
+//        guard let startTime = timeslot.startTime else
+//        {
+//            completion(nil)
+//            return
+//        }
+//
+//        let timeslotsRef = databaseRef.child("timeslots")
+//        let query = timeslotsRef.queryOrdered(byChild: "startTime").queryEqual(toValue: startTime)
+//        query.observeSingleEvent(of: .value, with:
+//            { snapshot in
+//                if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot]
+//                {
+//                    completion(snapshots.first?.key)
+//                }
+//        })
+    }
 
-        let timeslotsRef = databaseRef.child("timeslots")
-        let query = timeslotsRef.queryOrdered(byChild: "startTime").queryEqual(toValue: startTime)
+    ////////////////////////////////////////////////////////////
+
+    func updateSessionSpeaker(key: String, inSession sessionName: String)
+    {
+        let sessionsRef = databaseRef.child("sessions")
+        let query = sessionsRef.queryOrdered(byChild: "name").queryEqual(toValue: sessionName)
         query.observeSingleEvent(of: .value, with:
-            { snapshot in
-                if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot]
-                {
-                    completion(snapshots.first?.key)
+        { snapshot in
+            if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot]
+            {
+                let sessionKey = snapshots.first?.key
+                self.getSpeaker(withKey: key)
+                { speaker in
+                    let childUpdates = ["/sessions/\(sessionKey!)/speaker/\(key)/name/": speaker.fullName,
+                                        "/sessions/\(sessionKey!)/speaker/\(key)/avatarURL/": speaker.avatarURL]
+                    self.databaseRef.updateChildValues(childUpdates)
                 }
+            }
+        })
+    }
+
+    ////////////////////////////////////////////////////////////
+
+    func updateSession(_ sessionName: String, withTrack trackKey: String)
+    {
+        let tracksRef = databaseRef.child("tracks")
+        let trackQuery = tracksRef.queryOrderedByKey().queryEqual(toValue: trackKey)
+        trackQuery.observeSingleEvent(of: .value, with:
+        { snapshot in
+            if let tracks = snapshot.value as? [String: Any]
+            {
+                let tracksJSON = JSON(tracks)
+                if let track = tracksJSON[trackKey].dictionaryObject
+                {
+                    let trackName = JSON(track)["name"].stringValue
+                    let sessionsRef = self.databaseRef.child("sessions")
+                    let query = sessionsRef.queryOrdered(byChild: "name").queryEqual(toValue: sessionName)
+                    query.observeSingleEvent(of: .value, with:
+                    { snapshot in
+                        if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot]
+                        {
+                            let sessionKey = snapshots.first?.key
+                            let childUpdates =
+                                [
+                                    "/sessions/\(sessionKey!)/track/\(trackKey)/": trackName
+                            ]
+                            self.databaseRef.updateChildValues(childUpdates)
+                        }
+                    })
+                }
+            }
+            else
+            {
+                print("Nope")
+            }
+//            let trackName = track["name"] as! String
+//            print(trackName)
         })
     }
 
@@ -318,5 +473,58 @@ class DataService: NSObject
             "/timeslots/\(key)/sessions/\(sessionKey)/": true
         ]
         databaseRef.updateChildValues(childUpdates)
+    }
+
+    func updateAllSessions()
+    {
+//        let sessionsRef = databaseRef.child("sessions")
+//        sessionsRef.observeSingleEvent(of: .value, with:
+//        { snapshot in
+//            if let sessions = snapshot.children.allObjects as? [FIRDataSnapshot]
+//            {
+//                for session in sessions
+//                {
+//                    if let sessionObject = session.value as? [String: Any]
+//                    {
+//                        if let track = sessionObject["track"] as? [String: Any]
+//                        {
+//                            if let key = track.first?.key
+//                            {
+//                                let tracksRef = self.databaseRef.child("tracks")
+//                                let query = tracksRef.queryOrderedByKey().queryEqual(toValue: key)
+//                                query.observeSingleEvent(of: .value, with:
+//                                { snapshot in
+//                                    if let tracks = snapshot.children.allObjects as? [FIRDataSnapshot]
+//                                    {
+//                                        for track in tracks
+//                                        {
+//                                            if let trackObject = track.value as? [String: Any]
+//                                            {
+//                                                if let roomNumber = trackObject["roomNumber"] as? String
+//                                                {
+//                                                    let childUpdates =
+//                                                    [
+//                                                        "/sessions/\(session.key)/track/\(key)/roomNumber/": roomNumber
+//                                                    ]
+//                                                    self.databaseRef.updateChildValues(childUpdates)
+//                                                }
+//                                            }
+//                                        }
+//                                    }
+//                                })
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        })
+    }
+}
+
+extension FIRDataSnapshot
+{
+    var json: JSON
+    {
+        return JSON(self.value!)
     }
 }

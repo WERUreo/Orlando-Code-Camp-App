@@ -30,6 +30,7 @@ class SpeakerEntryViewController: UIViewController
 
     @IBAction func submitTapped(_ sender: Any)
     {
+        DataService.shared.saveSpeaker(nil) {}
 //        let fullName = fullNameTextField.text
 //        let company = companyTextField.text
 //        let title = titleTextField.text

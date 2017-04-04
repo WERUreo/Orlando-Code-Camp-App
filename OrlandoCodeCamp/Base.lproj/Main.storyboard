@@ -45,7 +45,7 @@
         <!--Speakers-->
         <scene sceneID="Bp8-GG-Dmq">
             <objects>
-                <viewController id="F93-I9-3hG" sceneMemberID="viewController">
+                <viewController id="F93-I9-3hG" customClass="SpeakersViewController" customModule="OrlandoCodeCamp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="p6S-Ug-9PR"/>
                         <viewControllerLayoutGuide type="bottom" id="Tls-KM-Tlg"/>
@@ -68,6 +68,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Speakers" id="1sR-Ox-tPR"/>
+                    <connections>
+                        <outlet property="tableView" destination="Npv-ja-KYT" id="Uo8-f0-NAm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qFN-HF-6rY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -79,6 +82,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="gVL-cj-0Vp" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="D66-M9-Nku">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>

@@ -132,37 +132,38 @@ class SessionEntryViewController: UIViewController
 
     @IBAction func submitTapped(_ sender: Any)
     {
-        let name = self.nameTextField.text
-        let description = self.descriptionTextField.text
-        let level = self.levelSegmentedControl.selectedSegmentIndex + 1
-        let speaker = self.selectedSpeaker
-        var cospeakers: [Speaker]?
-        if let cospeaker = self.selectedCospeaker
-        {
-            if (cospeakers?.append(cospeaker)) == nil
-            {
-                cospeakers = [cospeaker]
-            }
-        }
-        let track = self.selectedTrack
-        let timeslot = self.selectedTimeslot
-
-        let session = Session(name: name, description: description, level: level, speaker: speaker, cospeakers: cospeakers, track: track, timeslot: timeslot)
-        DataService.shared.saveSession(session)
-        {
-            self.nameTextField.text = ""
-            self.descriptionTextField.text = ""
-            self.levelSegmentedControl.selectedSegmentIndex = 0
-            self.speakerTextField.text = ""
-            self.cospeakerTextField.text = ""
-            self.trackTextField.text = ""
-            self.timeslotTextField.text = ""
-
-            self.selectedSpeaker = nil
-            self.selectedCospeaker = nil
-            self.selectedTrack = nil
-            self.selectedTimeslot = nil
-        }
+        DataService.shared.saveSession(nil) {}
+//        let name = self.nameTextField.text
+//        let description = self.descriptionTextField.text
+//        let level = self.levelSegmentedControl.selectedSegmentIndex + 1
+//        let speaker = self.selectedSpeaker
+//        var cospeakers: [Speaker]?
+//        if let cospeaker = self.selectedCospeaker
+//        {
+//            if (cospeakers?.append(cospeaker)) == nil
+//            {
+//                cospeakers = [cospeaker]
+//            }
+//        }
+//        let track = self.selectedTrack
+//        let timeslot = self.selectedTimeslot
+//
+//        let session = Session(name: name, description: description, level: level, speaker: speaker, cospeakers: cospeakers, track: track, timeslot: timeslot)
+//        DataService.shared.saveSession(session)
+//        {
+//            self.nameTextField.text = ""
+//            self.descriptionTextField.text = ""
+//            self.levelSegmentedControl.selectedSegmentIndex = 0
+//            self.speakerTextField.text = ""
+//            self.cospeakerTextField.text = ""
+//            self.trackTextField.text = ""
+//            self.timeslotTextField.text = ""
+//
+//            self.selectedSpeaker = nil
+//            self.selectedCospeaker = nil
+//            self.selectedTrack = nil
+//            self.selectedTimeslot = nil
+//        }
     }
 }
 
@@ -197,7 +198,7 @@ extension SessionEntryViewController: UIPickerViewDelegate, UIPickerViewDataSour
             case PickerTag.track.rawValue:
                 return self.tracks[row].name
             case PickerTag.timeslot.rawValue:
-                return "\(self.timeslots[row].startTime!) - \(self.timeslots[row].endTime!)"
+                return "\(self.timeslots[row].time)"
             default:
                 return nil
         }
@@ -217,7 +218,7 @@ extension SessionEntryViewController: UIPickerViewDelegate, UIPickerViewDataSour
                 self.trackTextField.text = self.tracks[row].name
                 self.selectedTrack = self.tracks[row]
             case PickerTag.timeslot.rawValue:
-                self.timeslotTextField.text = "\(self.timeslots[row].startTime!) - \(self.timeslots[row].endTime!)"
+                self.timeslotTextField.text = "\(self.timeslots[row].time)"
                 self.selectedTimeslot = self.timeslots[row]
             default:
                 break

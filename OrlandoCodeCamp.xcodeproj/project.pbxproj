@@ -25,12 +25,17 @@
 		421E398A1E8CA38E004A2C96 /* TimeSlotEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421E39891E8CA38E004A2C96 /* TimeSlotEntryViewController.swift */; };
 		421E398C1E8CA39C004A2C96 /* SponsorEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421E398B1E8CA39C004A2C96 /* SponsorEntryViewController.swift */; };
 		421E398E1E8CA3A7004A2C96 /* SessionEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421E398D1E8CA3A7004A2C96 /* SessionEntryViewController.swift */; };
+		428757801E93195F00AE9AA4 /* Temp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4287577F1E93195F00AE9AA4 /* Temp.storyboard */; };
+		428757821E93239300AE9AA4 /* TempViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428757811E93239300AE9AA4 /* TempViewController.swift */; };
 		4291DD1F1E8EF3220058ED2C /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4291DD1D1E8EF3220058ED2C /* ScheduleCell.swift */; };
 		4291DD201E8EF3220058ED2C /* ScheduleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4291DD1E1E8EF3220058ED2C /* ScheduleCell.xib */; };
 		4291DD221E8EF6820058ED2C /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4291DD211E8EF6820058ED2C /* ScheduleViewController.swift */; };
 		4291DD251E8F09C20058ED2C /* UITableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4291DD241E8F09C20058ED2C /* UITableViewExtension.swift */; };
 		4291DD271E8F0A570058ED2C /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4291DD261E8F0A570058ED2C /* ReusableView.swift */; };
 		4291DD291E8F0AF60058ED2C /* NibLoadableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4291DD281E8F0AF60058ED2C /* NibLoadableView.swift */; };
+		42CABFAB1E917128009FDBD4 /* SpeakerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CABFA91E917128009FDBD4 /* SpeakerCell.swift */; };
+		42CABFAC1E917128009FDBD4 /* SpeakerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42CABFAA1E917128009FDBD4 /* SpeakerCell.xib */; };
+		42CABFAE1E917445009FDBD4 /* SpeakersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CABFAD1E917445009FDBD4 /* SpeakersViewController.swift */; };
 		42DD76D81E8DFD4B00CC7D1A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42DD76D61E8DFD4B00CC7D1A /* Main.storyboard */; };
 		BE0BFC522E7A3667F2AAA384 /* Pods_OrlandoCodeCamp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9157020BEA6EDCD95AF4DED8 /* Pods_OrlandoCodeCamp.framework */; };
 /* End PBXBuildFile section */
@@ -57,12 +62,17 @@
 		421E39891E8CA38E004A2C96 /* TimeSlotEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimeSlotEntryViewController.swift; path = "Controllers/Data Entry/TimeSlotEntryViewController.swift"; sourceTree = "<group>"; };
 		421E398B1E8CA39C004A2C96 /* SponsorEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SponsorEntryViewController.swift; path = "Controllers/Data Entry/SponsorEntryViewController.swift"; sourceTree = "<group>"; };
 		421E398D1E8CA3A7004A2C96 /* SessionEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SessionEntryViewController.swift; path = "Controllers/Data Entry/SessionEntryViewController.swift"; sourceTree = "<group>"; };
+		4287577F1E93195F00AE9AA4 /* Temp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Temp.storyboard; sourceTree = "<group>"; };
+		428757811E93239300AE9AA4 /* TempViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TempViewController.swift; path = Controllers/TempViewController.swift; sourceTree = "<group>"; };
 		4291DD1D1E8EF3220058ED2C /* ScheduleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScheduleCell.swift; path = "Views/Schedule Table View Cell/ScheduleCell.swift"; sourceTree = "<group>"; };
 		4291DD1E1E8EF3220058ED2C /* ScheduleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ScheduleCell.xib; path = "Views/Schedule Table View Cell/ScheduleCell.xib"; sourceTree = "<group>"; };
 		4291DD211E8EF6820058ED2C /* ScheduleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScheduleViewController.swift; path = Controllers/ScheduleViewController.swift; sourceTree = "<group>"; };
 		4291DD241E8F09C20058ED2C /* UITableViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UITableViewExtension.swift; path = Extensions/UITableViewExtension.swift; sourceTree = "<group>"; };
 		4291DD261E8F0A570058ED2C /* ReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReusableView.swift; path = Views/ReusableView.swift; sourceTree = "<group>"; };
 		4291DD281E8F0AF60058ED2C /* NibLoadableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NibLoadableView.swift; path = Views/NibLoadableView.swift; sourceTree = "<group>"; };
+		42CABFA91E917128009FDBD4 /* SpeakerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpeakerCell.swift; path = "Views/Speaker Table View Cell/SpeakerCell.swift"; sourceTree = "<group>"; };
+		42CABFAA1E917128009FDBD4 /* SpeakerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SpeakerCell.xib; path = "Views/Speaker Table View Cell/SpeakerCell.xib"; sourceTree = "<group>"; };
+		42CABFAD1E917445009FDBD4 /* SpeakersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpeakersViewController.swift; path = Controllers/SpeakersViewController.swift; sourceTree = "<group>"; };
 		42DD76D71E8DFD4B00CC7D1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		863C21CCB923FDB642E89A84 /* Pods-OrlandoCodeCamp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OrlandoCodeCamp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OrlandoCodeCamp/Pods-OrlandoCodeCamp.debug.xcconfig"; sourceTree = "<group>"; };
 		9157020BEA6EDCD95AF4DED8 /* Pods_OrlandoCodeCamp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OrlandoCodeCamp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -159,6 +169,7 @@
 		4291DD1B1E8EF2D60058ED2C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				42CABFA81E9170EC009FDBD4 /* Speaker Table View Cell */,
 				4291DD1C1E8EF2EE0058ED2C /* Schedule Table View Cell */,
 				4291DD261E8F0A570058ED2C /* ReusableView.swift */,
 				4291DD281E8F0AF60058ED2C /* NibLoadableView.swift */,
@@ -183,11 +194,22 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
+		42CABFA81E9170EC009FDBD4 /* Speaker Table View Cell */ = {
+			isa = PBXGroup;
+			children = (
+				42CABFA91E917128009FDBD4 /* SpeakerCell.swift */,
+				42CABFAA1E917128009FDBD4 /* SpeakerCell.xib */,
+			);
+			name = "Speaker Table View Cell";
+			sourceTree = "<group>";
+		};
 		42DD76D31E8DFBFB00CC7D1A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				421E398F1E8CA3B1004A2C96 /* Data Entry */,
 				4291DD211E8EF6820058ED2C /* ScheduleViewController.swift */,
+				42CABFAD1E917445009FDBD4 /* SpeakersViewController.swift */,
+				428757811E93239300AE9AA4 /* TempViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -208,6 +230,7 @@
 				421E39631E8C3AF2004A2C96 /* DataEntry.storyboard */,
 				421E39681E8C3AF2004A2C96 /* LaunchScreen.storyboard */,
 				42DD76D61E8DFD4B00CC7D1A /* Main.storyboard */,
+				4287577F1E93195F00AE9AA4 /* Temp.storyboard */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -288,7 +311,9 @@
 				42DD76D81E8DFD4B00CC7D1A /* Main.storyboard in Resources */,
 				4291DD201E8EF3220058ED2C /* ScheduleCell.xib in Resources */,
 				421E39821E8C4961004A2C96 /* GoogleService-Info.plist in Resources */,
+				428757801E93195F00AE9AA4 /* Temp.storyboard in Resources */,
 				421E39671E8C3AF2004A2C96 /* Assets.xcassets in Resources */,
+				42CABFAC1E917128009FDBD4 /* SpeakerCell.xib in Resources */,
 				421E39651E8C3AF2004A2C96 /* DataEntry.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -361,6 +386,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				428757821E93239300AE9AA4 /* TempViewController.swift in Sources */,
 				421E398C1E8CA39C004A2C96 /* SponsorEntryViewController.swift in Sources */,
 				421E39841E8C4FAE004A2C96 /* SpeakerEntryViewController.swift in Sources */,
 				421E39781E8C3F56004A2C96 /* Session.swift in Sources */,
@@ -373,9 +399,11 @@
 				4291DD271E8F0A570058ED2C /* ReusableView.swift in Sources */,
 				421E398E1E8CA3A7004A2C96 /* SessionEntryViewController.swift in Sources */,
 				421E39861E8C5260004A2C96 /* DataService.swift in Sources */,
+				42CABFAE1E917445009FDBD4 /* SpeakersViewController.swift in Sources */,
 				421E39881E8C9E50004A2C96 /* TrackEntryViewController.swift in Sources */,
 				421E39801E8C4234004A2C96 /* Track.swift in Sources */,
 				4291DD291E8F0AF60058ED2C /* NibLoadableView.swift in Sources */,
+				42CABFAB1E917128009FDBD4 /* SpeakerCell.swift in Sources */,
 				421E397A1E8C3FDA004A2C96 /* Speaker.swift in Sources */,
 				421E39741E8C3E60004A2C96 /* Event.swift in Sources */,
 				421E398A1E8CA38E004A2C96 /* TimeSlotEntryViewController.swift in Sources */,

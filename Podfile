@@ -7,4 +7,6 @@ target 'OrlandoCodeCamp' do
   pod 'SwiftyJSON'
   pod 'Fabric'
   pod 'Crashlytics'
+  pod 'Alamofire'
+  pod 'AlamofireImage'
 end

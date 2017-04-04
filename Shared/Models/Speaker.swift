@@ -41,15 +41,15 @@ struct Speaker
     init(json: JSON)
     {
         self.fullName = json["fullName"].stringValue
-        self.company = json["company"].stringValue
-        self.title = json["title"].stringValue
-        self.bio = json["bio"].stringValue
-        self.twitter = json["twitter"].stringValue
-        self.website = json["website"].stringValue
-        self.blog = json["blog"].stringValue
+        self.company = json["company"].string
+        self.title = json["title"].string
+        self.bio = json["bio"].string
+        self.twitter = json["twitter"].string
+        self.website = json["website"].string
+        self.blog = json["blog"].string
         self.avatarURL = json["avatarURL"].stringValue
-        self.mvpDetails = json["mvpDetails"].stringValue
-        self.authorDetails = json["authorDetails"].stringValue
+        self.mvpDetails = json["mvpDetails"].string
+        self.authorDetails = json["authorDetails"].string
         self.sessions = nil
     }
 }

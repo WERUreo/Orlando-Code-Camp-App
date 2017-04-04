@@ -11,23 +11,20 @@ import SwiftyJSON
 
 struct Timeslot
 {
-    let startTime: String?
-    let endTime: String?
-    let rank: Int?
+    let time: String
+    let rank: Int
     let sessions: [Session]?
 
-    init(startTime: String?, endTime: String?, rank: Int?, sessions: [Session]?)
+    init(time: String, rank: Int, sessions: [Session]?)
     {
-        self.startTime = startTime
-        self.endTime = endTime
+        self.time = time
         self.rank = rank
         self.sessions = sessions
     }
 
     init(json: JSON)
     {
-        self.startTime = json["startTime"].stringValue
-        self.endTime = json["endTime"].stringValue
+        self.time = json["time"].stringValue
         self.rank = json["rank"].intValue
         self.sessions = nil
     }
