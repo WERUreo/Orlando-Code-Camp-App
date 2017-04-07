@@ -33,24 +33,34 @@ struct Session
 {
     let name: String
     let description: String
-    let level: SessionLevel
-    var speaker: (name: String, avatarURL: String)
+    let level: SessionLevel?
+    var speaker: (name: String, avatarURL: String, title: String?, company: String?, twitter: String?)?
     let cospeakers: [(name: String, avatarURL: String)]?
-    var track: (name: String, roomNumber: String)
-    let timeslot: String
+    var track: (name: String, roomNumber: String)?
+    let timeslot: (time: String, rank: Int)
 
     init(json: JSON)
     {
-        let speaker: (key: String, value: JSON) = json["speaker"].first!
-        let track: (key: String, value: JSON) = json["track"].first!
+        let speaker = json["speaker"].first
+        let track = json["track"].first
         let timeslot: (key: String, value: JSON) = json["timeslot"].first!
 
         self.name = json["name"].stringValue
         self.description = json["description"].stringValue
-        self.level = SessionLevel(rawValue: json["level"].intValue)!
-        self.speaker = (name: speaker.value["fullName"].stringValue, avatarURL: speaker.value["avatarURL"].stringValue)
-        self.track = (name: track.value["name"].stringValue, roomNumber: track.value["roomNumber"].stringValue)
+        self.level = SessionLevel(rawValue: json["level"].intValue)
+        if let speaker = speaker
+        {
+            self.speaker = (name: speaker.1["name"].stringValue,
+                            avatarURL: speaker.1["avatarURL"].stringValue,
+                            title: speaker.1["title"].string,
+                            company: speaker.1["company"].string,
+                            twitter: speaker.1["twitter"].string)
+        }
+        if let track = track
+        {
+            self.track = (name: track.1["name"].stringValue, roomNumber: track.1["roomNumber"].stringValue)
+        }
         self.cospeakers = nil
-        self.timeslot = timeslot.value["time"].stringValue
+        self.timeslot = (time: timeslot.value["time"].stringValue, rank: timeslot.value["rank"].intValue)
     }
 }

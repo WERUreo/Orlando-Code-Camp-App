@@ -53,6 +53,22 @@ class SpeakersViewController: UIViewController
             }
         }
     }
+
+    ////////////////////////////////////////////////////////////
+    // MARK: - Navigation
+    ////////////////////////////////////////////////////////////
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        super.prepare(for: segue, sender: sender)
+
+        if let vc = segue.destination as? SpeakerDetailViewController,
+           segue.identifier == "SpeakerDetail",
+           let speaker = sender as? Speaker
+        {
+            vc.speaker = speaker
+        }
+    }
 }
 
 ////////////////////////////////////////////////////////////
@@ -73,5 +89,14 @@ extension SpeakersViewController: UITableViewDelegate, UITableViewDataSource
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as SpeakerCell
         cell.configure(with: self.speakers[indexPath.row])
         return cell
+    }
+
+    ////////////////////////////////////////////////////////////
+
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
+        let speaker = self.speakers[indexPath.row]
+        performSegue(withIdentifier: "SpeakerDetail", sender: speaker)
     }
 }

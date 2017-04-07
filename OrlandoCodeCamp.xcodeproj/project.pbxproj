@@ -25,6 +25,10 @@
 		421E398A1E8CA38E004A2C96 /* TimeSlotEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421E39891E8CA38E004A2C96 /* TimeSlotEntryViewController.swift */; };
 		421E398C1E8CA39C004A2C96 /* SponsorEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421E398B1E8CA39C004A2C96 /* SponsorEntryViewController.swift */; };
 		421E398E1E8CA3A7004A2C96 /* SessionEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421E398D1E8CA3A7004A2C96 /* SessionEntryViewController.swift */; };
+		424F13471E959B95008C10CE /* SpeakerListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424F13461E959B95008C10CE /* SpeakerListTableViewController.swift */; };
+		424F13491E959BA4008C10CE /* TrackListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424F13481E959BA4008C10CE /* TrackListTableViewController.swift */; };
+		424F134B1E959BB5008C10CE /* TimeslotListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424F134A1E959BB5008C10CE /* TimeslotListTableViewController.swift */; };
+		424F134D1E959BC6008C10CE /* SessionListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424F134C1E959BC6008C10CE /* SessionListTableViewController.swift */; };
 		428757801E93195F00AE9AA4 /* Temp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4287577F1E93195F00AE9AA4 /* Temp.storyboard */; };
 		428757821E93239300AE9AA4 /* TempViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428757811E93239300AE9AA4 /* TempViewController.swift */; };
 		4291DD1F1E8EF3220058ED2C /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4291DD1D1E8EF3220058ED2C /* ScheduleCell.swift */; };
@@ -33,9 +37,11 @@
 		4291DD251E8F09C20058ED2C /* UITableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4291DD241E8F09C20058ED2C /* UITableViewExtension.swift */; };
 		4291DD271E8F0A570058ED2C /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4291DD261E8F0A570058ED2C /* ReusableView.swift */; };
 		4291DD291E8F0AF60058ED2C /* NibLoadableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4291DD281E8F0AF60058ED2C /* NibLoadableView.swift */; };
+		42ABDEBF1E950C530066B343 /* SpeakerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ABDEBE1E950C530066B343 /* SpeakerDetailViewController.swift */; };
 		42CABFAB1E917128009FDBD4 /* SpeakerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CABFA91E917128009FDBD4 /* SpeakerCell.swift */; };
 		42CABFAC1E917128009FDBD4 /* SpeakerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42CABFAA1E917128009FDBD4 /* SpeakerCell.xib */; };
 		42CABFAE1E917445009FDBD4 /* SpeakersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CABFAD1E917445009FDBD4 /* SpeakersViewController.swift */; };
+		42DC2C491E945830004FD495 /* SessionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DC2C481E945830004FD495 /* SessionDetailViewController.swift */; };
 		42DD76D81E8DFD4B00CC7D1A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42DD76D61E8DFD4B00CC7D1A /* Main.storyboard */; };
 		BE0BFC522E7A3667F2AAA384 /* Pods_OrlandoCodeCamp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9157020BEA6EDCD95AF4DED8 /* Pods_OrlandoCodeCamp.framework */; };
 /* End PBXBuildFile section */
@@ -62,6 +68,10 @@
 		421E39891E8CA38E004A2C96 /* TimeSlotEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimeSlotEntryViewController.swift; path = "Controllers/Data Entry/TimeSlotEntryViewController.swift"; sourceTree = "<group>"; };
 		421E398B1E8CA39C004A2C96 /* SponsorEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SponsorEntryViewController.swift; path = "Controllers/Data Entry/SponsorEntryViewController.swift"; sourceTree = "<group>"; };
 		421E398D1E8CA3A7004A2C96 /* SessionEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SessionEntryViewController.swift; path = "Controllers/Data Entry/SessionEntryViewController.swift"; sourceTree = "<group>"; };
+		424F13461E959B95008C10CE /* SpeakerListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpeakerListTableViewController.swift; path = "Controllers/Data Entry/SpeakerListTableViewController.swift"; sourceTree = "<group>"; };
+		424F13481E959BA4008C10CE /* TrackListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackListTableViewController.swift; path = "Controllers/Data Entry/TrackListTableViewController.swift"; sourceTree = "<group>"; };
+		424F134A1E959BB5008C10CE /* TimeslotListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimeslotListTableViewController.swift; path = "Controllers/Data Entry/TimeslotListTableViewController.swift"; sourceTree = "<group>"; };
+		424F134C1E959BC6008C10CE /* SessionListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SessionListTableViewController.swift; path = "Controllers/Data Entry/SessionListTableViewController.swift"; sourceTree = "<group>"; };
 		4287577F1E93195F00AE9AA4 /* Temp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Temp.storyboard; sourceTree = "<group>"; };
 		428757811E93239300AE9AA4 /* TempViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TempViewController.swift; path = Controllers/TempViewController.swift; sourceTree = "<group>"; };
 		4291DD1D1E8EF3220058ED2C /* ScheduleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScheduleCell.swift; path = "Views/Schedule Table View Cell/ScheduleCell.swift"; sourceTree = "<group>"; };
@@ -70,9 +80,11 @@
 		4291DD241E8F09C20058ED2C /* UITableViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UITableViewExtension.swift; path = Extensions/UITableViewExtension.swift; sourceTree = "<group>"; };
 		4291DD261E8F0A570058ED2C /* ReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReusableView.swift; path = Views/ReusableView.swift; sourceTree = "<group>"; };
 		4291DD281E8F0AF60058ED2C /* NibLoadableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NibLoadableView.swift; path = Views/NibLoadableView.swift; sourceTree = "<group>"; };
+		42ABDEBE1E950C530066B343 /* SpeakerDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpeakerDetailViewController.swift; path = Controllers/SpeakerDetailViewController.swift; sourceTree = "<group>"; };
 		42CABFA91E917128009FDBD4 /* SpeakerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpeakerCell.swift; path = "Views/Speaker Table View Cell/SpeakerCell.swift"; sourceTree = "<group>"; };
 		42CABFAA1E917128009FDBD4 /* SpeakerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SpeakerCell.xib; path = "Views/Speaker Table View Cell/SpeakerCell.xib"; sourceTree = "<group>"; };
 		42CABFAD1E917445009FDBD4 /* SpeakersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpeakersViewController.swift; path = Controllers/SpeakersViewController.swift; sourceTree = "<group>"; };
+		42DC2C481E945830004FD495 /* SessionDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SessionDetailViewController.swift; path = Controllers/SessionDetailViewController.swift; sourceTree = "<group>"; };
 		42DD76D71E8DFD4B00CC7D1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		863C21CCB923FDB642E89A84 /* Pods-OrlandoCodeCamp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OrlandoCodeCamp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OrlandoCodeCamp/Pods-OrlandoCodeCamp.debug.xcconfig"; sourceTree = "<group>"; };
 		9157020BEA6EDCD95AF4DED8 /* Pods_OrlandoCodeCamp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OrlandoCodeCamp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -157,13 +169,49 @@
 		421E398F1E8CA3B1004A2C96 /* Data Entry */ = {
 			isa = PBXGroup;
 			children = (
-				421E39831E8C4FAE004A2C96 /* SpeakerEntryViewController.swift */,
-				421E39871E8C9E50004A2C96 /* TrackEntryViewController.swift */,
-				421E39891E8CA38E004A2C96 /* TimeSlotEntryViewController.swift */,
+				424F134E1E959BEF008C10CE /* Speakers */,
+				424F134F1E959BF6008C10CE /* Tracks */,
+				424F13501E959BFD008C10CE /* Timeslots */,
 				421E398B1E8CA39C004A2C96 /* SponsorEntryViewController.swift */,
-				421E398D1E8CA3A7004A2C96 /* SessionEntryViewController.swift */,
+				424F13511E959C04008C10CE /* Sessions */,
 			);
 			name = "Data Entry";
+			sourceTree = "<group>";
+		};
+		424F134E1E959BEF008C10CE /* Speakers */ = {
+			isa = PBXGroup;
+			children = (
+				424F13461E959B95008C10CE /* SpeakerListTableViewController.swift */,
+				421E39831E8C4FAE004A2C96 /* SpeakerEntryViewController.swift */,
+			);
+			name = Speakers;
+			sourceTree = "<group>";
+		};
+		424F134F1E959BF6008C10CE /* Tracks */ = {
+			isa = PBXGroup;
+			children = (
+				424F13481E959BA4008C10CE /* TrackListTableViewController.swift */,
+				421E39871E8C9E50004A2C96 /* TrackEntryViewController.swift */,
+			);
+			name = Tracks;
+			sourceTree = "<group>";
+		};
+		424F13501E959BFD008C10CE /* Timeslots */ = {
+			isa = PBXGroup;
+			children = (
+				424F134A1E959BB5008C10CE /* TimeslotListTableViewController.swift */,
+				421E39891E8CA38E004A2C96 /* TimeSlotEntryViewController.swift */,
+			);
+			name = Timeslots;
+			sourceTree = "<group>";
+		};
+		424F13511E959C04008C10CE /* Sessions */ = {
+			isa = PBXGroup;
+			children = (
+				424F134C1E959BC6008C10CE /* SessionListTableViewController.swift */,
+				421E398D1E8CA3A7004A2C96 /* SessionEntryViewController.swift */,
+			);
+			name = Sessions;
 			sourceTree = "<group>";
 		};
 		4291DD1B1E8EF2D60058ED2C /* Views */ = {
@@ -203,13 +251,23 @@
 			name = "Speaker Table View Cell";
 			sourceTree = "<group>";
 		};
+		42DC2C4A1E9474AB004FD495 /* Temp */ = {
+			isa = PBXGroup;
+			children = (
+				428757811E93239300AE9AA4 /* TempViewController.swift */,
+			);
+			name = Temp;
+			sourceTree = "<group>";
+		};
 		42DD76D31E8DFBFB00CC7D1A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				42DC2C4A1E9474AB004FD495 /* Temp */,
 				421E398F1E8CA3B1004A2C96 /* Data Entry */,
 				4291DD211E8EF6820058ED2C /* ScheduleViewController.swift */,
+				42DC2C481E945830004FD495 /* SessionDetailViewController.swift */,
 				42CABFAD1E917445009FDBD4 /* SpeakersViewController.swift */,
-				428757811E93239300AE9AA4 /* TempViewController.swift */,
+				42ABDEBE1E950C530066B343 /* SpeakerDetailViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -392,18 +450,24 @@
 				421E39781E8C3F56004A2C96 /* Session.swift in Sources */,
 				4291DD221E8EF6820058ED2C /* ScheduleViewController.swift in Sources */,
 				421E39761E8C3F06004A2C96 /* Announcement.swift in Sources */,
+				424F134D1E959BC6008C10CE /* SessionListTableViewController.swift in Sources */,
 				4291DD1F1E8EF3220058ED2C /* ScheduleCell.swift in Sources */,
 				421E397E1E8C41F5004A2C96 /* Timeslot.swift in Sources */,
 				421E397C1E8C41B8004A2C96 /* Sponsor.swift in Sources */,
 				4291DD251E8F09C20058ED2C /* UITableViewExtension.swift in Sources */,
 				4291DD271E8F0A570058ED2C /* ReusableView.swift in Sources */,
 				421E398E1E8CA3A7004A2C96 /* SessionEntryViewController.swift in Sources */,
+				424F13471E959B95008C10CE /* SpeakerListTableViewController.swift in Sources */,
 				421E39861E8C5260004A2C96 /* DataService.swift in Sources */,
 				42CABFAE1E917445009FDBD4 /* SpeakersViewController.swift in Sources */,
 				421E39881E8C9E50004A2C96 /* TrackEntryViewController.swift in Sources */,
 				421E39801E8C4234004A2C96 /* Track.swift in Sources */,
 				4291DD291E8F0AF60058ED2C /* NibLoadableView.swift in Sources */,
 				42CABFAB1E917128009FDBD4 /* SpeakerCell.swift in Sources */,
+				42DC2C491E945830004FD495 /* SessionDetailViewController.swift in Sources */,
+				42ABDEBF1E950C530066B343 /* SpeakerDetailViewController.swift in Sources */,
+				424F134B1E959BB5008C10CE /* TimeslotListTableViewController.swift in Sources */,
+				424F13491E959BA4008C10CE /* TrackListTableViewController.swift in Sources */,
 				421E397A1E8C3FDA004A2C96 /* Speaker.swift in Sources */,
 				421E39741E8C3E60004A2C96 /* Event.swift in Sources */,
 				421E398A1E8CA38E004A2C96 /* TimeSlotEntryViewController.swift in Sources */,
@@ -548,6 +612,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.werureo.OrlandoCodeCamp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -563,6 +628,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.werureo.OrlandoCodeCamp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

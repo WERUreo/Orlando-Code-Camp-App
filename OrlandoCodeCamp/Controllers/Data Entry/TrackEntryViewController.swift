@@ -13,23 +13,31 @@ class TrackEntryViewController: UIViewController
     @IBOutlet weak var trackNameTextField: UITextField!
     @IBOutlet weak var roomNumberTextField: UITextField!
 
+    var track: Track?
+
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        self.configureView()
+    }
 
-        // Do any additional setup after loading the view.
+    func configureView()
+    {
+        if let track = self.track
+        {
+            self.trackNameTextField.text = track.name
+            self.roomNumberTextField.text = track.roomNumber
+        }
     }
 
     @IBAction func submitTapped(_ sender: Any)
     {
-        let trackName = trackNameTextField.text
-        let roomNumber = roomNumberTextField.text
+        let trackName = self.trackNameTextField.text!
+        let roomNumber = self.roomNumberTextField.text!
 
-        let track = Track(name: trackName, roomNumber: roomNumber, sessions: nil)
-        DataService.shared.saveTrack(track)
+        DataService.shared.saveTrack(name: trackName, roomNumber: roomNumber)
         {
-            trackNameTextField.text = ""
-            roomNumberTextField.text = ""
+            self.dismiss(animated: true, completion: nil)
         }
     }
 }

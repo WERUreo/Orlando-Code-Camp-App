@@ -15,6 +15,10 @@ class SessionEntryViewController: UIViewController
         case speaker, cospeaker, track, timeslot
     }
 
+    ////////////////////////////////////////////////////////////
+    // MARK: - IBOutlets
+    ////////////////////////////////////////////////////////////
+
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var descriptionTextField: UITextField!
     @IBOutlet weak var levelSegmentedControl: UISegmentedControl!
@@ -23,6 +27,12 @@ class SessionEntryViewController: UIViewController
     @IBOutlet weak var trackTextField: UITextField!
     @IBOutlet weak var timeslotTextField: UITextField!
 
+    ////////////////////////////////////////////////////////////
+    // MARK: - Properties
+    ////////////////////////////////////////////////////////////
+
+    var session: Session?
+    
     var speakerPicker = UIPickerView()
     var cospeakerPicker = UIPickerView()
     var trackPicker = UIPickerView()
@@ -35,6 +45,10 @@ class SessionEntryViewController: UIViewController
     var selectedCospeaker: Speaker?
     var selectedTrack: Track?
     var selectedTimeslot: Timeslot?
+
+    ////////////////////////////////////////////////////////////
+    // MARK: - View Controller Lifecycle
+    ////////////////////////////////////////////////////////////
 
     override func viewDidLoad()
     {
@@ -60,6 +74,10 @@ class SessionEntryViewController: UIViewController
         self.getTimeslots()
     }
 
+    ////////////////////////////////////////////////////////////
+    // MARK: - Helper Functions
+    ////////////////////////////////////////////////////////////
+
     private func getSpeakers()
     {
         DataService.shared.getAllSpeakers
@@ -84,6 +102,8 @@ class SessionEntryViewController: UIViewController
         }
     }
 
+    ////////////////////////////////////////////////////////////
+
     private func getTracks()
     {
         DataService.shared.getAllTracks
@@ -107,6 +127,8 @@ class SessionEntryViewController: UIViewController
         }
     }
 
+    ////////////////////////////////////////////////////////////
+
     private func getTimeslots()
     {
         DataService.shared.getAllTimeslots
@@ -129,6 +151,10 @@ class SessionEntryViewController: UIViewController
             }
         }
     }
+
+    ////////////////////////////////////////////////////////////
+    // MARK: - IBActions
+    ////////////////////////////////////////////////////////////
 
     @IBAction func submitTapped(_ sender: Any)
     {
@@ -167,12 +193,18 @@ class SessionEntryViewController: UIViewController
     }
 }
 
+////////////////////////////////////////////////////////////
+// MARK: - UIPickerViewDelegate, UIPickerViewDataSource
+////////////////////////////////////////////////////////////
+
 extension SessionEntryViewController: UIPickerViewDelegate, UIPickerViewDataSource
 {
     func numberOfComponents(in pickerView: UIPickerView) -> Int
     {
         return 1
     }
+
+    ////////////////////////////////////////////////////////////
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int
     {
@@ -189,6 +221,8 @@ extension SessionEntryViewController: UIPickerViewDelegate, UIPickerViewDataSour
         }
     }
 
+    ////////////////////////////////////////////////////////////
+
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
     {
         switch pickerView.tag
@@ -204,6 +238,8 @@ extension SessionEntryViewController: UIPickerViewDelegate, UIPickerViewDataSour
         }
     }
 
+    ////////////////////////////////////////////////////////////
+    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
         switch pickerView.tag

@@ -44,19 +44,24 @@ class ScheduleCell: UITableViewCell
     func configure(with session: Session)
     {
         self.sessionNameLabel.text = session.name
-        self.speakerNameLabel.text = session.speaker.name
-        self.configureImage(from: session.speaker.avatarURL)
-        self.timeLocationLabel.text = "\(session.timeslot) (Room \(session.track.roomNumber))"
-//        if let speaker = session.speaker
-//        {
-//            self.speakerNameLabel.text = speaker.name
-//            self.configureImage(from: speaker.avatarURL)
-//        }
-//        else
-//        {
-//            self.speakerNameLabel.text = ""
-//            self.speakerAvatarImageView.image = nil
-//        }
+        if let track = session.track
+        {
+            self.timeLocationLabel.text = "Room \(track.roomNumber)"
+        }
+        else
+        {
+            self.timeLocationLabel.text = ""
+        }
+        if let speaker = session.speaker
+        {
+            self.speakerNameLabel.text = speaker.name
+            self.configureImage(from: speaker.avatarURL)
+        }
+        else
+        {
+            self.speakerNameLabel.text = ""
+            self.speakerAvatarImageView.image = nil
+        }
     }
 
     ////////////////////////////////////////////////////////////

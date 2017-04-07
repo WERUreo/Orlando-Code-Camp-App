@@ -1,82 +1,83 @@
 //
-//  SpeakerCell.swift
+//  SessionDetailViewController.swift
 //  OrlandoCodeCamp
 //
-//  Created by Keli'i Martin on 4/2/17.
+//  Created by Keli'i Martin on 4/4/17.
 //  Copyright © 2017 WERUreo. All rights reserved.
 //
 
 import UIKit
 import Alamofire
 
-class SpeakerCell: UITableViewCell
+class SessionDetailViewController: UIViewController
 {
     ////////////////////////////////////////////////////////////
     // MARK: - IBOutlets
     ////////////////////////////////////////////////////////////
 
+    @IBOutlet weak var sessionNameLabel: UILabel!
     @IBOutlet weak var speakerNameLabel: UILabel!
-    @IBOutlet weak var titleCompanyLabel: UILabel!
-    @IBOutlet weak var twitterLabel: UILabel!
-    @IBOutlet weak var speakerImageView: UIImageView!
+    @IBOutlet weak var speakerTitleCompanyLabel: UILabel!
+    @IBOutlet weak var speakerTwitterLabel: UILabel!
+    @IBOutlet weak var speakerAvatarImageView: UIImageView!
+    @IBOutlet weak var sessionDescriptionLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
     ////////////////////////////////////////////////////////////
     // MARK: - Properties
     ////////////////////////////////////////////////////////////
 
-    private var request: Request?
+    var session: Session!
+    var request: Request?
 
     ////////////////////////////////////////////////////////////
-    // MARK: - Lifecycle
+    // MARK: - View Controller Lifecycle
     ////////////////////////////////////////////////////////////
 
-    override func awakeFromNib()
+    override func viewDidLoad()
     {
-        super.awakeFromNib()
-        self.speakerImageView.layer.cornerRadius = self.speakerImageView.frame.width / 2.0
-        self.speakerImageView.clipsToBounds = true
+        super.viewDidLoad()
+        self.speakerAvatarImageView.layer.cornerRadius = self.speakerAvatarImageView.frame.width / 2.0
+        self.speakerAvatarImageView.clipsToBounds = true
+        self.configure()
     }
 
     ////////////////////////////////////////////////////////////
-    // MARK: - Configuration
+    // MARK: - Helper Functions
     ////////////////////////////////////////////////////////////
 
-    func configure(with speaker: Speaker)
+    func configure()
     {
-        self.titleCompanyLabel.isHidden = false
-        self.twitterLabel.isHidden = false
-        
-        self.speakerNameLabel.text = speaker.fullName
-        if let title = speaker.title
+        self.sessionNameLabel.text = self.session.name
+        self.sessionDescriptionLabel.text = self.session.description
+
+        if let speaker = self.session.speaker
         {
-            if let company = speaker.company
+            self.speakerNameLabel.text = speaker.name
+
+            if let title = speaker.title
             {
-                self.titleCompanyLabel.text = "\(title), \(company)"
+                if let company = speaker.company
+                {
+                    self.speakerTitleCompanyLabel.text = "\(title), \(company)"
+                }
+                else
+                {
+                    self.speakerTitleCompanyLabel.text = "\(title)"
+                }
+            }
+            else if let company = speaker.company
+            {
+                self.speakerTitleCompanyLabel.text = "\(company)"
             }
             else
             {
-                self.titleCompanyLabel.text = "\(title)"
+                self.speakerTitleCompanyLabel.isHidden = true
             }
-        }
-        else if let company = speaker.company
-        {
-            self.titleCompanyLabel.text = "\(company)"
-        }
-        else
-        {
-            self.titleCompanyLabel.isHidden = true
-        }
-        if let twitter = speaker.twitter
-        {
-            self.twitterLabel.text = twitter
-        }
-        else
-        {
-            self.twitterLabel.isHidden = true
-        }
 
-        self.configureImage(from: speaker.avatarURL)
+            self.speakerTwitterLabel.text = speaker.twitter
+            self.configureImage(from: speaker.avatarURL)
+        }
     }
 
     ////////////////////////////////////////////////////////////
@@ -93,7 +94,7 @@ class SpeakerCell: UITableViewCell
 
     private func reset()
     {
-        self.speakerImageView?.image = UIImage(named: "default_user")
+        self.speakerAvatarImageView?.image = UIImage(named: "default_user")
         self.request?.cancel()
     }
 
@@ -115,7 +116,7 @@ class SpeakerCell: UITableViewCell
         self.activityIndicator.stopAnimating()
         if let image = image
         {
-            self.speakerImageView.image = image
+            self.speakerAvatarImageView.image = image
         }
     }
 }

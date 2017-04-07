@@ -25,23 +25,23 @@
                             <constraint firstAttribute="height" constant="75" id="ytt-h9-3e8"/>
                         </constraints>
                     </imageView>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="kfJ-Jj-1if">
-                        <rect key="frame" x="91" y="8" width="221" height="64.5"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="kfJ-Jj-1if">
+                        <rect key="frame" x="91" y="8" width="221" height="56.5"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Session Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fNO-Oq-rL5">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Session Name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fNO-Oq-rL5">
                                 <rect key="frame" x="0.0" y="0.0" width="113.5" height="20.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Speaker Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3MS-ck-TV2">
-                                <rect key="frame" x="0.0" y="25.5" width="100.5" height="18"/>
+                                <rect key="frame" x="0.0" y="21.5" width="100.5" height="18"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time - Room" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UvI-Cc-pcM">
-                                <rect key="frame" x="0.0" y="48.5" width="78" height="16"/>
+                                <rect key="frame" x="0.0" y="40.5" width="78" height="16"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -63,7 +63,7 @@
                     <constraint firstItem="kfJ-Jj-1if" firstAttribute="leading" secondItem="ytu-5D-dQy" secondAttribute="trailing" constant="8" id="3cP-ET-9S3"/>
                     <constraint firstItem="tUh-wC-shp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="5AN-YI-yNM"/>
                     <constraint firstAttribute="topMargin" secondItem="kfJ-Jj-1if" secondAttribute="top" id="Igw-qw-jGG"/>
-                    <constraint firstAttribute="bottom" secondItem="ytu-5D-dQy" secondAttribute="bottom" constant="8" id="KDE-JO-95e"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ytu-5D-dQy" secondAttribute="bottom" priority="250" constant="8" id="KDE-JO-95e"/>
                     <constraint firstItem="ytu-5D-dQy" firstAttribute="leading" secondItem="tUh-wC-shp" secondAttribute="trailing" id="Mm8-kh-vKN"/>
                     <constraint firstItem="ytu-5D-dQy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="NDX-uT-fED"/>
                     <constraint firstAttribute="trailingMargin" secondItem="kfJ-Jj-1if" secondAttribute="trailing" id="O4m-iz-NaV"/>

@@ -33,6 +33,12 @@ class DataService: NSObject
     fileprivate let databaseRef = FIRDatabase.database().reference()
     fileprivate let imageCache = AutoPurgingImageCache()
 
+    static let kSessionsKey         = "sessions"
+    static let kSpeakersKey         = "speakers"
+    static let kTracksKey           = "tracks"
+    static let kTimeslotsKey        = "timeslots"
+    static let kDefaultAvatarURL    = "http://orlandocodecamp.com/images/default_user_icon.jpg"
+
     ////////////////////////////////////////////////////////////
     // MARK: - Initlializer
     ////////////////////////////////////////////////////////////
@@ -45,7 +51,7 @@ class DataService: NSObject
 
     func getAllSpeakers(completion: @escaping GetAllSpeakersCompletion)
     {
-        let speakersRef = databaseRef.child("speakers")
+        let speakersRef = databaseRef.child(DataService.kSpeakersKey)
         speakersRef.observeSingleEvent(of: .value, with:
         { snapshot in
             var speakers = [Speaker]()
@@ -69,7 +75,7 @@ class DataService: NSObject
 
     func getAllTracks(completion: @escaping GetAllTracksCompletion)
     {
-        let tracksRef = databaseRef.child("tracks")
+        let tracksRef = databaseRef.child(DataService.kTracksKey)
         tracksRef.observeSingleEvent(of: .value, with:
         { snapshot in
             var tracks = [Track]()
@@ -93,7 +99,7 @@ class DataService: NSObject
 
     func getAllTimeslots(completion: @escaping GetAllTimeslotsCompletion)
     {
-        let timeslotsRef = databaseRef.child("timeslots")
+        let timeslotsRef = databaseRef.child(DataService.kTimeslotsKey)
         timeslotsRef.observeSingleEvent(of: .value, with:
         { snapshot in
             var timeslots = [Timeslot]()
@@ -117,7 +123,7 @@ class DataService: NSObject
 
     func getAllSessions(completion: @escaping GetAllSessionsCompletion)
     {
-        let sessionsRef = databaseRef.child("sessions")
+        let sessionsRef = databaseRef.child(DataService.kSessionsKey)
         sessionsRef.observe(.value, with:
         { snapshot in
             var sessions = [Session]()
@@ -141,7 +147,7 @@ class DataService: NSObject
 
     func getTrack(withKey key: String, completion: @escaping GetTrackWithKeyCompletion)
     {
-        let tracksRef = databaseRef.child("tracks")
+        let tracksRef = databaseRef.child(DataService.kTracksKey)
         tracksRef.child(key).observeSingleEvent(of: .value, with:
         { snapshot in
             print(snapshot.value ?? "Nothing")
@@ -152,7 +158,7 @@ class DataService: NSObject
 
     func getSpeaker(withKey key: String, completion: @escaping GetSpeakerWithKeyCompletion)
     {
-        let speakersRef = databaseRef.child("speakers")
+        let speakersRef = databaseRef.child(DataService.kSpeakersKey)
         speakersRef.child(key).observeSingleEvent(of: .value, with:
         { snapshot in
             if let value = snapshot.value as? [String: Any]
@@ -199,7 +205,7 @@ class DataService: NSObject
 
     func getSession(withName name: String)
     {
-        let sessionsRef = databaseRef.child("sessions")
+        let sessionsRef = databaseRef.child(DataService.kSessionsKey)
         let query = sessionsRef.queryOrdered(byChild: "name").queryEqual(toValue: name)
         query.observeSingleEvent(of: .value, with:
         { snapshot in
@@ -214,9 +220,57 @@ class DataService: NSObject
     // MARK: - Save Functions
     ////////////////////////////////////////////////////////////
 
+//    func saveSession(name: String, )
+
+    func saveSpeaker(name: String, title: String?, company: String?, bio: String?, twitter: String?, website: String?, blog: String?, avatarURL: String = DataService.kDefaultAvatarURL, mvpDetails: String?, authorDetails: String?, completion: @escaping () -> Void)
+    {
+        let speakersRef = self.databaseRef.child(DataService.kSpeakersKey)
+        let query = speakersRef.queryOrdered(byChild: "fullName").queryEqual(toValue: name)
+        query.observeSingleEvent(of: .value, with:
+        { snapshot in
+            var key = ""
+            if snapshot.exists()
+            {
+                if let snaps = snapshot.children.allObjects as? [FIRDataSnapshot],
+                   let speaker = snaps.first
+                {
+                    key = speaker.key
+                }
+                else
+                {
+                    // We should never reach this case.  This would mean that somehow, there is a speaker with the fullName we passed in, but at the same time there isn't....
+                    completion()
+                    return
+                }
+            }
+            else
+            {
+                key = speakersRef.childByAutoId().key
+            }
+
+            let childUpdates: [AnyHashable: Any] =
+            [
+                "/speakers/\(key)/fullName/": name,
+                "/speakers/\(key)/title/": title as Any,
+                "/speakers/\(key)/company/": company as Any,
+                "/speakers/\(key)/bio/": bio as Any,
+                "/speakers/\(key)/twitter/": twitter as Any,
+                "/speakers/\(key)/website/": website as Any,
+                "/speakers/\(key)/blog/": blog as Any,
+                "/speakers/\(key)/avatarURL/": avatarURL,
+                "/speakers/\(key)/mvpDetails/": mvpDetails as Any,
+                "/speakers/\(key)/authorDetails/": authorDetails as Any
+            ]
+            self.databaseRef.updateChildValues(childUpdates)
+            completion()
+        })
+    }
+
+    ////////////////////////////////////////////////////////////
+
     func saveSpeaker(_ speaker: Speaker?, completion: () -> Void)
     {
-        let speakersRef = databaseRef.child("speakers")
+        let speakersRef = databaseRef.child(DataService.kSpeakersKey)
         let key = speakersRef.childByAutoId()
 
         key.child("fullName").setValue("temp")
@@ -235,6 +289,53 @@ class DataService: NSObject
 
     ////////////////////////////////////////////////////////////
 
+    func saveTrack(name: String, roomNumber: String, completion: @escaping () -> Void)
+    {
+        let tracksRef = self.databaseRef.child(DataService.kTracksKey)
+        let query = tracksRef.queryOrdered(byChild: "name").queryEqual(toValue: name)
+        query.observeSingleEvent(of: .value, with:
+        { snapshot in
+            if let snaps = snapshot.children.allObjects as? [FIRDataSnapshot],
+               let track = snaps.first
+            {
+                if let trackSnaps = track.children.allObjects as? [FIRDataSnapshot]
+                {
+                    for trackSnap in trackSnaps
+                    {
+                        if trackSnap.key == "sessions"
+                        {
+                            if let sessions = trackSnap.children.allObjects as? [FIRDataSnapshot]
+                            {
+                                var childUpdates: [AnyHashable: Any]?
+                                for session in sessions
+                                {
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+//                print(track)
+//                if let value = track.value as? [String: Any]
+//                {
+//                    if let temp = value["sessions"] as? [String: Any]
+//                    {
+//                        print(temp)
+//                    }
+//                }
+//                let childUpdates =
+//                [
+//                    "/tracks/\(track.key)/roomNumber/": roomNumber
+//                ]
+//
+//                self.databaseRef.updateChildValues(childUpdates)
+                completion()
+            }
+        })
+    }
+
+    ////////////////////////////////////////////////////////////
+
     func saveTrack(_ track: Track, completion: () -> Void)
     {
 //        let tracksRef = databaseRef.child("tracks")
@@ -249,7 +350,7 @@ class DataService: NSObject
 
     func saveTimeSlot(_ timeslot: Timeslot, completion: () -> Void)
     {
-        let timeslotsRef = databaseRef.child("timeslots")
+        let timeslotsRef = databaseRef.child(DataService.kTimeslotsKey)
         let key = timeslotsRef.childByAutoId()
 
         key.child("time").setValue(timeslot.time)
@@ -277,7 +378,7 @@ class DataService: NSObject
 
     func saveSession(_ session: Session?, completion: () -> Void)
     {
-        let sessionsRef = databaseRef.child("sessions")
+        let sessionsRef = databaseRef.child(DataService.kSessionsKey)
         let newSessionRef = sessionsRef.childByAutoId()
         newSessionRef.child("name").setValue("temp")
 //        let key = newSessionRef.key
@@ -324,12 +425,30 @@ class DataService: NSObject
     }
 
     ////////////////////////////////////////////////////////////
+    // MARK: - Delete Functions
+    ////////////////////////////////////////////////////////////
+
+    func deleteSpeaker(_ name: String, completion: () -> Void)
+    {
+        let speakersRef = self.databaseRef.child(DataService.kSpeakersKey)
+        let query = speakersRef.queryOrdered(byChild: "fullName").queryEqual(toValue: name)
+        query.observeSingleEvent(of: .value, with:
+        { snapshot in
+            if let snaps = snapshot.children.allObjects as? [FIRDataSnapshot],
+               let speaker = snaps.first
+            {
+                print(speaker.key)
+            }
+        })
+    }
+
+    ////////////////////////////////////////////////////////////
     // MARK: - Private Functions
     ////////////////////////////////////////////////////////////
 
     private func getSpeakerKey(_ speaker: Speaker, completion: @escaping (String?) -> Void)
     {
-        let speakersRef = databaseRef.child("speakers")
+        let speakersRef = self.databaseRef.child(DataService.kSpeakersKey)
         let query = speakersRef.queryOrdered(byChild: "fullName").queryEqual(toValue: speaker.fullName)
         query.observeSingleEvent(of: .value, with:
         { snapshot in
@@ -344,14 +463,8 @@ class DataService: NSObject
 
     private func getTrackKey(_ track: Track, completion: @escaping (String?) -> Void)
     {
-        guard let name = track.name else
-        {
-            completion(nil)
-            return
-        }
-
-        let tracksRef = databaseRef.child("tracks")
-        let query = tracksRef.queryOrdered(byChild: "name").queryEqual(toValue: name)
+        let tracksRef = databaseRef.child(DataService.kTracksKey)
+        let query = tracksRef.queryOrdered(byChild: "name").queryEqual(toValue: track.name)
         query.observeSingleEvent(of: .value, with:
         { snapshot in
             if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot]
@@ -371,7 +484,7 @@ class DataService: NSObject
 //            return
 //        }
 //
-//        let timeslotsRef = databaseRef.child("timeslots")
+//        let timeslotsRef = databaseRef.child(DataService.kTimeslotsKey)
 //        let query = timeslotsRef.queryOrdered(byChild: "startTime").queryEqual(toValue: startTime)
 //        query.observeSingleEvent(of: .value, with:
 //            { snapshot in
@@ -386,7 +499,7 @@ class DataService: NSObject
 
     func updateSessionSpeaker(key: String, inSession sessionName: String)
     {
-        let sessionsRef = databaseRef.child("sessions")
+        let sessionsRef = databaseRef.child(DataService.kSessionsKey)
         let query = sessionsRef.queryOrdered(byChild: "name").queryEqual(toValue: sessionName)
         query.observeSingleEvent(of: .value, with:
         { snapshot in
@@ -407,7 +520,7 @@ class DataService: NSObject
 
     func updateSession(_ sessionName: String, withTrack trackKey: String)
     {
-        let tracksRef = databaseRef.child("tracks")
+        let tracksRef = databaseRef.child(DataService.kTracksKey)
         let trackQuery = tracksRef.queryOrderedByKey().queryEqual(toValue: trackKey)
         trackQuery.observeSingleEvent(of: .value, with:
         { snapshot in
@@ -477,7 +590,7 @@ class DataService: NSObject
 
     func updateAllSessions()
     {
-//        let sessionsRef = databaseRef.child("sessions")
+//        let sessionsRef = databaseRef.child(DataService.kSessionsKey)
 //        sessionsRef.observeSingleEvent(of: .value, with:
 //        { snapshot in
 //            if let sessions = snapshot.children.allObjects as? [FIRDataSnapshot]
@@ -486,26 +599,36 @@ class DataService: NSObject
 //                {
 //                    if let sessionObject = session.value as? [String: Any]
 //                    {
-//                        if let track = sessionObject["track"] as? [String: Any]
+//                        if let speaker = sessionObject["speaker"] as? [String: Any]
 //                        {
-//                            if let key = track.first?.key
+//                            if let key = speaker.first?.key
 //                            {
-//                                let tracksRef = self.databaseRef.child("tracks")
-//                                let query = tracksRef.queryOrderedByKey().queryEqual(toValue: key)
+//                                let speakersRef = self.databaseRef.child("speakers")
+//                                let query = speakersRef.queryOrderedByKey().queryEqual(toValue: key)
 //                                query.observeSingleEvent(of: .value, with:
 //                                { snapshot in
-//                                    if let tracks = snapshot.children.allObjects as? [FIRDataSnapshot]
+//                                    if let speakers = snapshot.children.allObjects as? [FIRDataSnapshot]
 //                                    {
-//                                        for track in tracks
+//                                        for speakerSnap in speakers
 //                                        {
-//                                            if let trackObject = track.value as? [String: Any]
+//                                            if let speakerObject = speakerSnap.value as? [String: Any]
 //                                            {
-//                                                if let roomNumber = trackObject["roomNumber"] as? String
+//                                                var childUpdates = [AnyHashable: Any]()
+//                                                if let twitter = speakerObject["twitter"] as? String
 //                                                {
-//                                                    let childUpdates =
-//                                                    [
-//                                                        "/sessions/\(session.key)/track/\(key)/roomNumber/": roomNumber
-//                                                    ]
+//                                                    childUpdates["/sessions/\(session.key)/speaker/\(key)/twitter/"] = twitter
+//                                                }
+//                                                if let title = speakerObject["title"] as? String
+//                                                {
+//                                                    childUpdates["/sessions/\(session.key)/speaker/\(key)/title/"] = title
+//                                                }
+//                                                if let company = speakerObject["company"] as? String
+//                                                {
+//                                                    childUpdates["/sessions/\(session.key)/speaker/\(key)/company/"] = company
+//                                                }
+//
+//                                                if !childUpdates.isEmpty
+//                                                {
 //                                                    self.databaseRef.updateChildValues(childUpdates)
 //                                                }
 //                                            }
