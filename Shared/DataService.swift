@@ -52,7 +52,7 @@ class DataService: NSObject
     func getAllSpeakers(completion: @escaping GetAllSpeakersCompletion)
     {
         let speakersRef = databaseRef.child(DataService.kSpeakersKey)
-        speakersRef.observeSingleEvent(of: .value, with:
+        speakersRef.observe(.value, with:
         { snapshot in
             var speakers = [Speaker]()
             if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot]
@@ -220,8 +220,6 @@ class DataService: NSObject
     // MARK: - Save Functions
     ////////////////////////////////////////////////////////////
 
-//    func saveSession(name: String, )
-
     func saveSpeaker(name: String, title: String?, company: String?, bio: String?, twitter: String?, website: String?, blog: String?, avatarURL: String = DataService.kDefaultAvatarURL, mvpDetails: String?, authorDetails: String?, completion: @escaping () -> Void)
     {
         let speakersRef = self.databaseRef.child(DataService.kSpeakersKey)
@@ -229,12 +227,42 @@ class DataService: NSObject
         query.observeSingleEvent(of: .value, with:
         { snapshot in
             var key = ""
+            var childUpdates = [AnyHashable: Any]()
             if snapshot.exists()
             {
                 if let snaps = snapshot.children.allObjects as? [FIRDataSnapshot],
                    let speaker = snaps.first
                 {
                     key = speaker.key
+                    let sessionsSnap = speaker.childSnapshot(forPath: "sessions/")
+                    if let sessions = sessionsSnap.children.allObjects as? [FIRDataSnapshot]
+                    {
+                        sessions.forEach
+                        {
+                            let sessionKey = $0.key
+                            childUpdates["/sessions/\(sessionKey)/speaker/\(key)/name/"] = name
+                            childUpdates["/sessions/\(sessionKey)/speaker/\(key)/title/"] = title as Any
+                            childUpdates["/sessions/\(sessionKey)/speaker/\(key)/company/"] = company as Any
+                            childUpdates["/sessions/\(sessionKey)/speaker/\(key)/twitter/"] = twitter as Any
+                            childUpdates["/sessions/\(sessionKey)/speaker/\(key)/avatarURL/"] = avatarURL
+
+                            let sessionsRef = self.databaseRef.child(DataService.kSessionsKey)
+                            let query = sessionsRef.queryOrderedByKey().queryEqual(toValue: $0.key)
+                            query.observeSingleEvent(of: .value, with:
+                            { snapshot in
+                                if let sessionsSnap = snapshot.children.allObjects as? [FIRDataSnapshot],
+                                   let session = sessionsSnap.first
+                                {
+                                    let nameSnap = session.childSnapshot(forPath: "name")
+                                    if let nameValue = nameSnap.value
+                                    {
+                                        let updates: [AnyHashable: Any] = ["/speakers/\(key)/sessions/\(sessionKey)/name/":nameValue]
+                                        self.databaseRef.updateChildValues(updates)
+                                    }
+                                }
+                            })
+                        }
+                    }
                 }
                 else
                 {
@@ -248,19 +276,16 @@ class DataService: NSObject
                 key = speakersRef.childByAutoId().key
             }
 
-            let childUpdates: [AnyHashable: Any] =
-            [
-                "/speakers/\(key)/fullName/": name,
-                "/speakers/\(key)/title/": title as Any,
-                "/speakers/\(key)/company/": company as Any,
-                "/speakers/\(key)/bio/": bio as Any,
-                "/speakers/\(key)/twitter/": twitter as Any,
-                "/speakers/\(key)/website/": website as Any,
-                "/speakers/\(key)/blog/": blog as Any,
-                "/speakers/\(key)/avatarURL/": avatarURL,
-                "/speakers/\(key)/mvpDetails/": mvpDetails as Any,
-                "/speakers/\(key)/authorDetails/": authorDetails as Any
-            ]
+            childUpdates["/speakers/\(key)/fullName/"] = name
+            childUpdates["/speakers/\(key)/title/"] = title as Any
+            childUpdates["/speakers/\(key)/company/"] = company as Any
+            childUpdates["/speakers/\(key)/bio/"] = bio as Any
+            childUpdates["/speakers/\(key)/twitter/"] = twitter as Any
+            childUpdates["/speakers/\(key)/website/"] = website as Any
+            childUpdates["/speakers/\(key)/blog/"] = blog as Any
+            childUpdates["/speakers/\(key)/avatarURL/"] = avatarURL
+            childUpdates["/speakers/\(key)/mvpDetails/"] = mvpDetails as Any
+            childUpdates["/speakers/\(key)/authorDetails/"] = authorDetails as Any
             self.databaseRef.updateChildValues(childUpdates)
             completion()
         })
@@ -298,6 +323,11 @@ class DataService: NSObject
             if let snaps = snapshot.children.allObjects as? [FIRDataSnapshot],
                let track = snaps.first
             {
+//                let sessionsSnap = track.childSnapshot(forPath: "sessions/")
+//                if let sessions = sessionsSnap.children.allObjects as? [FIRDataSnapshot]
+//                {
+//                    sessions.forEach { print($0.key) }
+//                }
                 if let trackSnaps = track.children.allObjects as? [FIRDataSnapshot]
                 {
                     for trackSnap in trackSnaps
@@ -306,29 +336,31 @@ class DataService: NSObject
                         {
                             if let sessions = trackSnap.children.allObjects as? [FIRDataSnapshot]
                             {
-                                var childUpdates: [AnyHashable: Any]?
+                                var childUpdates = [AnyHashable: Any]()
                                 for session in sessions
                                 {
-                                    
+//                                    childUpdates["/\(DataService.kTracksKey)/\(track.key)/\(DataService.kSessionsKey)/\(session.key)/name/"] = session.value
+                                    childUpdates["/\(DataService.kSessionsKey)/\(session.key)/track/\(track.key)/roomNumber/"] = roomNumber
                                 }
+                                self.databaseRef.updateChildValues(childUpdates)
                             }
                         }
                     }
                 }
-//                print(track)
-//                if let value = track.value as? [String: Any]
-//                {
-//                    if let temp = value["sessions"] as? [String: Any]
-//                    {
-//                        print(temp)
-//                    }
-//                }
-//                let childUpdates =
-//                [
-//                    "/tracks/\(track.key)/roomNumber/": roomNumber
-//                ]
-//
-//                self.databaseRef.updateChildValues(childUpdates)
+                print(track)
+                if let value = track.value as? [String: Any]
+                {
+                    if let temp = value["sessions"] as? [String: Any]
+                    {
+                        print(temp)
+                    }
+                }
+                let childUpdates =
+                [
+                    "/tracks/\(track.key)/roomNumber/": roomNumber
+                ]
+
+                self.databaseRef.updateChildValues(childUpdates)
                 completion()
             }
         })
@@ -372,6 +404,45 @@ class DataService: NSObject
 //        if let website = sponsor.website, website != "" { key.child("website").setValue(website) }
 //        if let avatarURL = sponsor.avatarURL, avatarURL != "" { key.child("avatarURL").setValue(avatarURL) }
         completion()
+    }
+
+    ////////////////////////////////////////////////////////////
+
+    func saveSession(name: String, description: String, level: Int, completion: @escaping () -> Void)
+    {
+        let sessionsRef = self.databaseRef.child(DataService.kSessionsKey)
+        let query = sessionsRef.queryOrdered(byChild: "name").queryEqual(toValue: name)
+        query.observeSingleEvent(of: .value, with:
+        { snapshot in
+            var key = ""
+            var childUpdates = [AnyHashable: Any]()
+            if snapshot.exists()
+            {
+                if let sessionSnaps = snapshot.children.allObjects as? [FIRDataSnapshot],
+                   let session = sessionSnaps.first
+                {
+                    key = session.key
+                }
+                else
+                {
+                    completion()
+                    return
+                }
+            }
+            else
+            {
+                key = sessionsRef.childByAutoId().key
+            }
+
+            childUpdates["/sessions/\(key)/name/"] = name
+            childUpdates["/sessions/\(key)/description/"] = description
+            childUpdates["/sessions/\(key)/level/"] = level
+            childUpdates["/sessions/\(key)/speaker"] = "temp"
+            childUpdates["/sessions/\(key)/timeslot"] = "temp"
+            childUpdates["/sessions/\(key)/track"] = "temp"
+            self.databaseRef.updateChildValues(childUpdates)
+            completion()
+        })
     }
 
     ////////////////////////////////////////////////////////////
@@ -641,6 +712,46 @@ class DataService: NSObject
 //                }
 //            }
 //        })
+    }
+
+    ////////////////////////////////////////////////////////////
+    // MARK: - Search Functions
+    ////////////////////////////////////////////////////////////
+
+    func findSession(withName name: String, completion: @escaping (String) -> Void)
+    {
+        let sessionsRef = self.databaseRef.child(DataService.kSessionsKey)
+        let query = sessionsRef.queryOrdered(byChild: "name").queryEqual(toValue: name)
+        query.observeSingleEvent(of: .value, with:
+        { snapshot in
+            if !snapshot.exists()
+            {
+                completion("This session doesn't exist")
+            }
+            else
+            {
+                completion("This session does exist")
+            }
+        })
+    }
+
+    ////////////////////////////////////////////////////////////
+
+    func findSpeaker(withName name: String, completion: @escaping (String) -> Void)
+    {
+        let speakersRef = self.databaseRef.child(DataService.kSpeakersKey)
+        let query = speakersRef.queryOrdered(byChild: "fullName").queryEqual(toValue: name)
+        query.observeSingleEvent(of: .value, with:
+        { snapshot in
+            if !snapshot.exists()
+            {
+                completion("This speaker doesn't exist")
+            }
+            else
+            {
+                completion("This speaker does exist")
+            }
+        })
     }
 }
 

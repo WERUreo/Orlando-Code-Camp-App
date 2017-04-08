@@ -359,31 +359,31 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tXI-X1-ipK">
-                                <rect key="frame" x="139" y="72" width="255" height="30"/>
+                                <rect key="frame" x="139" y="28" width="255" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RFo-t6-qg8">
-                                <rect key="frame" x="139" y="110" width="255" height="30"/>
+                                <rect key="frame" x="139" y="66" width="255" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Track Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iif-Zw-d5l">
-                                <rect key="frame" x="20" y="77" width="92" height="21"/>
+                                <rect key="frame" x="20" y="33" width="92" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Room Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rta-jL-6id">
-                                <rect key="frame" x="20" y="115" width="111" height="21"/>
+                                <rect key="frame" x="20" y="71" width="111" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JTe-uu-kQu">
-                                <rect key="frame" x="20" y="148" width="374" height="30"/>
+                                <rect key="frame" x="20" y="104" width="374" height="30"/>
                                 <color key="backgroundColor" red="0.95686274510000002" green="0.26274509800000001" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Submit">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -820,10 +820,14 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Sessions" id="h42-KD-odP">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="uJm-6U-x0i"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="uJm-6U-x0i">
+                            <connections>
+                                <segue destination="1VM-fd-heA" kind="presentation" identifier="AddSession" id="dma-wk-CEi"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="1VM-fd-heA" kind="show" identifier="EditSession" id="srP-rD-YdG"/>
+                        <segue destination="1VM-fd-heA" kind="presentation" identifier="EditSession" id="srP-rD-YdG"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lq0-aY-9tq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -950,5 +954,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="O8k-n3-2Vg"/>
+        <segue reference="dma-wk-CEi"/>
     </inferredMetricsTieBreakers>
 </document>

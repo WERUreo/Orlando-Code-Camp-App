@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -19,12 +20,51 @@
                     <view key="view" contentMode="scaleToFill" id="zB7-fA-y0l">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Ipi-pe-1JI">
+                                <rect key="frame" x="16" y="96" width="343" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DiS-Os-BYj">
+                                <rect key="frame" x="16" y="134" width="343" height="30"/>
+                                <state key="normal" title="Search"/>
+                                <connections>
+                                    <action selector="searchTapped:" destination="n9z-ti-JJv" eventType="touchUpInside" id="VBI-0v-8zx"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="yG4-S2-bHp">
+                                <rect key="frame" x="16" y="210" width="343" height="263"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="263" id="fh0-f9-gcN"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Ipi-pe-1JI" firstAttribute="leading" secondItem="zB7-fA-y0l" secondAttribute="leadingMargin" id="1vM-Md-fG3"/>
+                            <constraint firstItem="yG4-S2-bHp" firstAttribute="trailing" secondItem="zB7-fA-y0l" secondAttribute="trailingMargin" id="Eka-kL-mvY"/>
+                            <constraint firstItem="DiS-Os-BYj" firstAttribute="top" secondItem="Ipi-pe-1JI" secondAttribute="bottom" constant="8" id="R8Z-Jw-Neq"/>
+                            <constraint firstItem="Ipi-pe-1JI" firstAttribute="trailing" secondItem="zB7-fA-y0l" secondAttribute="trailingMargin" id="SIO-Hd-4ch"/>
+                            <constraint firstItem="DiS-Os-BYj" firstAttribute="trailing" secondItem="zB7-fA-y0l" secondAttribute="trailingMargin" id="Sni-CX-h2F"/>
+                            <constraint firstItem="DiS-Os-BYj" firstAttribute="leading" secondItem="zB7-fA-y0l" secondAttribute="leadingMargin" id="SvD-Hw-abQ"/>
+                            <constraint firstItem="Ipi-pe-1JI" firstAttribute="top" secondItem="hyj-HM-u4o" secondAttribute="bottom" constant="76" id="T9f-Os-igs"/>
+                            <constraint firstItem="yG4-S2-bHp" firstAttribute="top" secondItem="DiS-Os-BYj" secondAttribute="bottom" constant="46" id="az0-OL-UAg"/>
+                            <constraint firstItem="yG4-S2-bHp" firstAttribute="leading" secondItem="zB7-fA-y0l" secondAttribute="leadingMargin" id="ohP-cG-0DV"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="resultsTextView" destination="yG4-S2-bHp" id="BTV-Te-1lg"/>
+                        <outlet property="searchTextField" destination="Ipi-pe-1JI" id="vLz-m5-QRZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HAy-RL-vZU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="105" y="51"/>
+            <point key="canvasLocation" x="104.8" y="50.824587706146929"/>
         </scene>
     </scenes>
 </document>

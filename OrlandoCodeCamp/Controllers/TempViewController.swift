@@ -10,9 +10,20 @@ import UIKit
 
 class TempViewController: UIViewController
 {
+    @IBOutlet weak var searchTextField: UITextField!
+    @IBOutlet weak var resultsTextView: UITextView!
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        DataService.shared.updateAllSessions()
+    }
+
+    @IBAction func searchTapped(_ sender: Any)
+    {
+        let searchText = self.searchTextField.text!
+        DataService.shared.findSpeaker(withName: searchText)
+        { result in
+            self.resultsTextView.text = result
+        }
     }
 }

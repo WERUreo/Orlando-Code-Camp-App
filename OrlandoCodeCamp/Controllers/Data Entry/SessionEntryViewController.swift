@@ -72,6 +72,17 @@ class SessionEntryViewController: UIViewController
         self.getSpeakers()
         self.getTracks()
         self.getTimeslots()
+
+        if let session = self.session
+        {
+            self.nameTextField.text = session.name
+            self.descriptionTextField.text = session.description
+            if let level = session.level { self.levelSegmentedControl.selectedSegmentIndex = level.rawValue - 1 }
+            if let speaker = session.speaker { self.speakerTextField.text = speaker.name }
+            if let cospeakers = session.cospeakers { self.cospeakerTextField.text = cospeakers.first?.name }
+            if let track = session.track { self.trackTextField.text = track.name }
+            self.timeslotTextField.text = session.timeslot.time
+        }
     }
 
     ////////////////////////////////////////////////////////////
@@ -158,38 +169,14 @@ class SessionEntryViewController: UIViewController
 
     @IBAction func submitTapped(_ sender: Any)
     {
-        DataService.shared.saveSession(nil) {}
-//        let name = self.nameTextField.text
-//        let description = self.descriptionTextField.text
-//        let level = self.levelSegmentedControl.selectedSegmentIndex + 1
-//        let speaker = self.selectedSpeaker
-//        var cospeakers: [Speaker]?
-//        if let cospeaker = self.selectedCospeaker
-//        {
-//            if (cospeakers?.append(cospeaker)) == nil
-//            {
-//                cospeakers = [cospeaker]
-//            }
-//        }
-//        let track = self.selectedTrack
-//        let timeslot = self.selectedTimeslot
-//
-//        let session = Session(name: name, description: description, level: level, speaker: speaker, cospeakers: cospeakers, track: track, timeslot: timeslot)
-//        DataService.shared.saveSession(session)
-//        {
-//            self.nameTextField.text = ""
-//            self.descriptionTextField.text = ""
-//            self.levelSegmentedControl.selectedSegmentIndex = 0
-//            self.speakerTextField.text = ""
-//            self.cospeakerTextField.text = ""
-//            self.trackTextField.text = ""
-//            self.timeslotTextField.text = ""
-//
-//            self.selectedSpeaker = nil
-//            self.selectedCospeaker = nil
-//            self.selectedTrack = nil
-//            self.selectedTimeslot = nil
-//        }
+        let name = self.nameTextField.text!
+        let description = self.descriptionTextField.text!
+        let level = self.levelSegmentedControl.selectedSegmentIndex + 1
+
+        DataService.shared.saveSession(name: name, description: description, level: level)
+        {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 }
 

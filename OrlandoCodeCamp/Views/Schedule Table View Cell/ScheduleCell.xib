@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="92"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="92"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="91.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_user" translatesAutoresizingMaskIntoConstraints="NO" id="ytu-5D-dQy">
@@ -50,7 +50,7 @@
                     </stackView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tUh-wC-shp">
                         <rect key="frame" x="0.0" y="0.0" width="8" height="92"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="8" id="bLc-q5-0zu"/>
                         </constraints>
@@ -70,6 +70,7 @@
                     <constraint firstAttribute="bottom" secondItem="tUh-wC-shp" secondAttribute="bottom" id="P2w-aG-1Em"/>
                     <constraint firstItem="ZNE-Th-pCg" firstAttribute="centerX" secondItem="ytu-5D-dQy" secondAttribute="centerX" id="PCv-ec-uAk"/>
                     <constraint firstItem="tUh-wC-shp" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="V82-KY-Okj"/>
+                    <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="kfJ-Jj-1if" secondAttribute="bottom" id="bwP-CC-I4H"/>
                     <constraint firstItem="tUh-wC-shp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="gQT-Qd-l88"/>
                     <constraint firstItem="ZNE-Th-pCg" firstAttribute="centerY" secondItem="ytu-5D-dQy" secondAttribute="centerY" id="mAL-ix-qL3"/>
                     <constraint firstItem="ytu-5D-dQy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="vGn-qL-OD8"/>
